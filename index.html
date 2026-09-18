@@ -1841,6 +1841,31 @@ clansNav.classList.remove("active");
 
 const clanDetails = await response.json();
 
+    const members = clanDetails.data?.Members || [];
+
+clanMembersList.innerHTML = members.map(member => {
+
+  const joinedDate = new Date(member.JoinTime * 1000);
+
+  const joined = joinedDate.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+  return `
+    <div class="member-card">
+      <div>
+        <strong>User ID: ${member.UserID}</strong>
+        <div class="small-text">
+          Joined ${joined}
+        </div>
+      </div>
+    </div>
+  `;
+
+}).join("");
+
 console.log("CLAN DETAILS:", clanDetails);
 
   clansPage.style.display = "none";
