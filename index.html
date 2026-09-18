@@ -509,7 +509,9 @@
 
 /* LEAGUE SEARCH - KAWAII BAR */
 
-#leaderboardPage .search-wrapper {
+#leaderboardPage .search-wrapper,
+#clansPage .search-wrapper,
+#playersPage .search-wrapper {
   max-width: 1100px;
   margin: 18px auto 28px;
 
@@ -528,14 +530,18 @@
     0 5px 18px rgba(255, 92, 168, 0.12);
 }
 
-#leaderboardPage .search-icon {
+#leaderboardPage .search-icon,
+#clansPage .search-icon,
+#playersPage .search-icon {
   position: static;
   flex-shrink: 0;
   font-size: 18px;
   line-height: 1;
 }
 
-#leaderboardPage .search {
+#leaderboardPage .search,
+#clansPage .search,
+#playersPage .search {
   width: 100%;
 
   padding: 10px 5px;
@@ -549,11 +555,15 @@
   font-size: 15px;
 }
 
-#leaderboardPage .search::placeholder {
+#leaderboardPage .search::placeholder,
+#clansPage .search::placeholder,
+#playersPage .search::placeholder {
   color: #d989ad;
 }
 
-#leaderboardPage .search-heart {
+#leaderboardPage .search-heart,
+#clansPage .search-heart,
+#playersPage .search-heart {
   flex-shrink: 0;
 
   font-size: 26px;
@@ -907,16 +917,21 @@
     </div>
 
 
-    <div style="max-width:600px; margin:30px auto;">
+   <div class="search-wrapper">
 
-      <input
-        type="text"
-        id="playerSearchInput"
-        placeholder="Search Roblox username..."
-        autocomplete="off"
-      >
+  <span class="search-icon">🔎</span>
 
-    </div>
+  <input
+    type="text"
+    id="playerSearchInput"
+    class="search"
+    placeholder="Search for a player..."
+    autocomplete="off"
+  >
+
+  <span class="search-heart">♡</span>
+
+</div>
 
 
     <div
