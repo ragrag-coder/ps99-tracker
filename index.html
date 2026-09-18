@@ -1865,6 +1865,16 @@ Object.values(battles).forEach(battle => {
 
 });
 
+members.sort((a, b) => {
+  const pointsA =
+    pointsByUser[Number(a.UserID)] || 0;
+
+  const pointsB =
+    pointsByUser[Number(b.UserID)] || 0;
+
+  return pointsB - pointsA;
+});
+    
     const userIds = members.map(member =>
   Number(member.UserID)
 );
