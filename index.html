@@ -1843,6 +1843,49 @@ const clanDetails = await response.json();
 
     const members = clanDetails.data?.Members || [];
 
+    const userIds = members.map(member =>
+  Number(member.UserID)
+);
+
+const robloxUsers = {};
+
+try {
+
+  const robloxResponse = await fetch(
+    "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        userIds: userIds,
+        excludeBannedUsers: false
+      })
+    }
+  );
+
+  if (robloxResponse.ok) {
+
+    const robloxResult =
+      await robloxResponse.json();
+
+    robloxResult.data.forEach(user => {
+      robloxUsers[user.id] = user;
+    });
+
+  }
+
+} catch (error) {
+
+  console.log(
+    "Clan Roblox usernames could not be loaded."
+  );
+
+}
+
 clanMembersList.innerHTML = members.map(member => {
 
   const joinedDate = new Date(member.JoinTime * 1000);
@@ -1856,7 +1899,9 @@ clanMembersList.innerHTML = members.map(member => {
   return `
     <div class="member-card">
       <div>
-        <strong>User ID: ${member.UserID}</strong>
+        <strong>
+  ${robloxUsers[Number(member.UserID)]?.displayName || member.UserID}
+</strong>
         <div class="small-text">
           Joined ${joined}
         </div>
