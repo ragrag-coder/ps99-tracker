@@ -334,6 +334,79 @@
         font-size: 13px;
       }
     }
+
+    #masteryOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(60, 20, 45, 0.35);
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+#masteryPopup {
+  width: 100%;
+  max-width: 650px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  background: #fff5fa;
+  border: 2px solid #ffb6d2;
+  border-radius: 25px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 15px 45px rgba(180, 60, 120, 0.25);
+}
+
+.mastery-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.mastery-popup-header h2 {
+  margin: 0;
+}
+
+#closeMastery {
+  border: none;
+  background: #ff5c9d;
+  color: white;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#masteryDetails {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#masteryDetails .member-card {
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  #masteryDetails {
+    grid-template-columns: 1fr;
+  }
+}
+    
   </style>
 </head>
 
@@ -645,9 +718,25 @@
   </div>
 
             <div
-  id="masteryDetails"
+  id="masteryOverlay"
   style="display:none;"
 >
+  <div id="masteryPopup">
+
+    <div class="mastery-popup-header">
+      <h2>♡ Mastery Details</h2>
+
+      <button
+        type="button"
+        id="closeMastery">
+        ✕
+      </button>
+    </div>
+
+    <div id="masteryDetails">
+    </div>
+
+  </div>
 </div>
 
   <div class="stat-card">
@@ -1541,16 +1630,28 @@ if (
 
 }
 
-  masteryCard.addEventListener(
+masteryCard.addEventListener(
   "click",
   () => {
-    if (
-      masteryDetails.style.display === "none" ||
-      masteryDetails.style.display === ""
-    ) {
-      masteryDetails.style.display = "block";
-    } else {
-      masteryDetails.style.display = "none";
+    masteryOverlay.style.display =
+      "flex";
+  }
+);
+
+closeMastery.addEventListener(
+  "click",
+  () => {
+    masteryOverlay.style.display =
+      "none";
+  }
+);
+
+masteryOverlay.addEventListener(
+  "click",
+  event => {
+    if (event.target === masteryOverlay) {
+      masteryOverlay.style.display =
+        "none";
     }
   }
 );
