@@ -226,28 +226,34 @@ async function showLeague(name) {
     );
 
     // Hent Roblox-navn for alle spillerne samtidig
-    const robloxResponse = await fetch(
-      "https://users.roblox.com/v1/users",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userIds: userIds,
-          excludeBannedUsers: false
-        })
-      }
-    );
-
-    const robloxResult = await robloxResponse.json();
-
-    // Lag en liste: ID -> Roblox-bruker
     const robloxUsers = {};
+
+try {
+  const robloxResponse = await fetch(
+    "https://users.roblox.com/v1/users",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userIds: userIds,
+        excludeBannedUsers: false
+      })
+    }
+  );
+
+  if (robloxResponse.ok) {
+    const robloxResult = await robloxResponse.json();
 
     robloxResult.data.forEach(user => {
       robloxUsers[user.id] = user;
     });
+  }
+
+} catch (error) {
+  console.log("Roblox usernames could not be loaded.");
+}
 
     // Lag overskriften
     leaderboard.innerHTML = `
