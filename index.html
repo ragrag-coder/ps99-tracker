@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PS99 Tracker</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #10131a;
+      color: white;
+    }
+
+    header {
+      background: #181d27;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      color: #b9c2d0;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .search {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #333b49;
+      background: #181d27;
+      color: white;
+      font-size: 16px;
+    }
+
+    .card {
+      background: #181d27;
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #303746;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PS99 Tracker</h1>
+
+  <nav>
+    <a href="#">Players</a>
+    <a href="#">Leagues</a>
+    <a href="#">Clans</a>
+  </nav>
+</header>
+
+<main>
+
+  <input
+    class="search"
+    type="text"
+    placeholder="Search player, league or clan..."
+  >
+
+  <div class="card">
+
+    <h2>League Leaderboard</h2>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>League</th>
+        <th>Points</th>
+        <th>Members</th>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>Example League</td>
+        <td>47,781,156</td>
+        <td>4/4</td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td>Another League</td>
+        <td>42,351,922</td>
+        <td>4/4</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</main>
+
+</body>
+</html>
