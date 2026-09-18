@@ -1297,6 +1297,33 @@ async function searchPlayers(search) {
 
 }
 
+  function masteryXpToLevel(xp) {
+  xp = Number(xp);
+
+  if (!Number.isFinite(xp) || xp < 0) {
+    return "-";
+  }
+
+  let totalPoints = 0;
+
+  for (let level = 1; level < 99; level++) {
+
+    totalPoints += Math.floor(
+      level +
+      300 * Math.pow(2, level / 7)
+    );
+
+    const xpForNextLevel =
+      Math.floor(totalPoints / 4);
+
+    if (xp < xpForNextLevel) {
+      return level;
+    }
+  }
+
+  return 99;
+}
+  
   async function openPublicPlayer(player) {
 
     publicPlayerStats.style.display =
@@ -1425,6 +1452,29 @@ if (
           .toLocaleString()
       : "-";
 
+const mastery =
+  data.Mastery;
+
+if (
+  mastery &&
+  typeof mastery === "object"
+) {
+  const masteryLevels =
+    Object.values(mastery)
+      .map(xp => masteryXpToLevel(xp));
+
+  const maxedMasteries =
+    masteryLevels
+      .filter(level => level === 99)
+      .length;
+
+  playerMastery.textContent =
+    `${maxedMasteries}/${masteryLevels.length}`;
+} else {
+  playerMastery.textContent =
+    "-";
+}
+  
   const playtimeSeconds =
   Number(data.Age);
 
