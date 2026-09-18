@@ -421,10 +421,27 @@
   </div>
 
   <nav>
-    <a href="#" onclick="showPlayers(event)">Players</a>
-    <a href="#" class="active">Leagues</a>
-    <a href="#">Clans</a>
-  </nav>
+  <a
+    href="#"
+    id="playersNav"
+    onclick="showPlayers(event)">
+    Players
+  </a>
+
+<a
+  href="#"
+  id="leaguesNav"
+  class="active"
+  onclick="showLeagues(event)">
+  Leagues
+</a>
+
+  <a
+    href="#"
+    id="clansNav">
+    Clans
+  </a>
+</nav>
 
 </header>
 
@@ -1279,6 +1296,11 @@ function showPlayers(event) {
   if (event) {
     event.preventDefault();
   }
+  
+playersNav.classList.add("active");
+leaguesNav.classList.remove("active");
+clansNav.classList.remove("active");
+  
 
   // Hide the other pages
   leaderboardPage.style.display =
@@ -1294,6 +1316,23 @@ function showPlayers(event) {
   playersPage.style.display =
     "block";
 
+}
+
+  function showLeagues(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  leaguesNav.classList.add("active");
+  playersNav.classList.remove("active");
+  clansNav.classList.remove("active");
+
+  playersPage.style.display = "none";
+  playerProfile.style.display = "none";
+  leagueProfile.style.display = "none";
+
+  leaderboardPage.style.display = "block";
 }
 
   let playerSearchTimer;
