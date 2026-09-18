@@ -406,42 +406,151 @@
     grid-template-columns: 1fr;
   }
 }
+
+    /* KAWAII HEADER */
+
+.kawaii-header {
+  position: relative;
+  text-align: center;
+  padding: 22px 20px 28px;
+
+  background:
+    radial-gradient(circle at 15% 25%, #ffffff 0 2px, transparent 3px),
+    radial-gradient(circle at 85% 35%, #ffffff 0 2px, transparent 3px),
+    linear-gradient(135deg, #ffd9eb, #fff0f7, #ffd2e8);
+
+  border-bottom: 2px solid #ffc1dc;
+  overflow: hidden;
+}
+
+.kawaii-header h1 {
+  margin: 0;
+
+  font-size: clamp(38px, 6vw, 58px);
+  font-weight: 900;
+
+  color: #ff5ca8;
+
+  text-shadow:
+    0 3px 0 #ffffff,
+    0 5px 10px rgba(255, 92, 168, 0.25);
+}
+
+.kawaii-header .subtitle {
+  margin-top: 5px;
+  margin-bottom: 18px;
+
+  color: #e85f9b;
+  font-weight: 600;
+}
+
+.header-sparkles {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 100%;
+
+  color: #ff8fc1;
+  font-size: 18px;
+
+  pointer-events: none;
+}
+
+.pill-nav {
+  width: min(420px, 90%);
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+
+  padding: 5px;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  border: 2px solid #ffc4df;
+  border-radius: 999px;
+
+  box-shadow:
+    0 5px 15px rgba(255, 92, 168, 0.12);
+}
+
+.pill-nav a {
+  flex: 1;
+
+  padding: 10px 14px;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+  color: #8f4267;
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.pill-nav a:hover {
+  background: #ffe2ef;
+}
+
+.pill-nav a.active {
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff75b5,
+      #ff4f9c
+    );
+
+  box-shadow:
+    0 4px 12px rgba(255, 79, 156, 0.3);
+}
     
   </style>
 </head>
 
 <body>
 
-<header>
+<header class="kawaii-header">
 
-  <h1>PS99 Tracker ♡</h1>
-
-  <div class="subtitle">
-    ✨ Track • Compare • Climb ✨
+  <div class="header-sparkles">
+    ✦　♡　✧　♡　✦
   </div>
 
-  <nav>
-  <a
-    href="#"
-    id="playersNav"
-    onclick="showPlayers(event)">
-    Players
-  </a>
+  <h1>
+    ♡ PS99 Tracker ♡
+  </h1>
 
-<a
-  href="#"
-  id="leaguesNav"
-  class="active"
-  onclick="showLeagues(event)">
-  Leagues
-</a>
+  <div class="subtitle">
+    Track ♡ Compare ♡ Climb
+  </div>
 
-<a
-  href="#"
-  id="clansNav"
-  onclick="showClans(event)">
-  Clans
-</a>
+  <nav class="pill-nav">
+
+    <a
+      href="#"
+      id="leaguesNav"
+      class="active"
+      onclick="showLeagues(event)">
+      Leagues
+    </a>
+
+    <a
+      href="#"
+      id="clansNav"
+      onclick="showClans(event)">
+      Clans
+    </a>
+
+    <a
+      href="#"
+      id="playersNav"
+      onclick="showPlayers(event)">
+      Players
+    </a>
+
+  </nav>
 
 </header>
 
