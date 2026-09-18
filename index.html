@@ -635,10 +635,20 @@
     <div class="stat-label">Eggs Hatched</div>
   </div>
 
-  <div class="stat-card">
+  <div
+  class="stat-card"
+  id="masteryCard"
+  style="cursor:pointer;"
+>
     <div class="stat-number" id="playerMastery">-</div>
     <div class="stat-label">Mastery</div>
   </div>
+
+            <div
+  id="masteryDetails"
+  style="display:none;"
+>
+</div>
 
   <div class="stat-card">
     <div class="stat-number" id="playerGamepasses">-</div>
@@ -1470,6 +1480,25 @@ if (
 
   playerMastery.textContent =
     `${maxedMasteries}/${masteryLevels.length}`;
+  masteryDetails.innerHTML =
+  Object.entries(mastery)
+    .map(([name, xp]) => {
+      const level =
+        masteryXpToLevel(xp);
+
+      return `
+        <div class="member-card">
+          <div class="member-name">
+            ${name}
+          </div>
+
+          <div class="stat-number">
+            ${level}
+          </div>
+        </div>
+      `;
+    })
+    .join("");
 } else {
   playerMastery.textContent =
     "-";
@@ -1511,6 +1540,20 @@ if (
   }
 
 }
+
+  masteryCard.addEventListener(
+  "click",
+  () => {
+    if (
+      masteryDetails.style.display === "none" ||
+      masteryDetails.style.display === ""
+    ) {
+      masteryDetails.style.display = "block";
+    } else {
+      masteryDetails.style.display = "none";
+    }
+  }
+);
   
 loadLeagues();
 
