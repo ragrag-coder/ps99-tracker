@@ -1368,6 +1368,34 @@ async function searchPlayers(search) {
     const profile =
   result.data.views?.profile;
 
+    const extendedProfile =
+  result.data.views?.extendedProfile;
+
+if (
+  extendedProfile &&
+  extendedProfile.available === false
+) {
+  playerGamepasses.textContent =
+    "Private 🔒";
+}
+
+    if (
+  extendedProfile &&
+  extendedProfile.available === true &&
+  extendedProfile.data?.Gamepasses
+) {
+  const gamepasses =
+    extendedProfile.data.Gamepasses;
+
+  const ownedGamepasses =
+    Object.values(gamepasses)
+      .filter(value => value === true)
+      .length;
+
+  playerGamepasses.textContent =
+    ownedGamepasses;
+}
+
 
 if (
   profile &&
