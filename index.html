@@ -1402,6 +1402,8 @@ clansNav.classList.remove("active");
   leaderboardPage.style.display = "none";
 
   clansPage.style.display = "block";
+    
+  loadClans();
 }
 
   let playerSearchTimer;
@@ -1466,33 +1468,29 @@ playerSearchInput.addEventListener(
   }
 );
 
-async function searchClans(search) {
+  async function loadClans() {
 
   try {
 
     const response =
       await fetch(
-        "https://ps99.biggamesapi.io/api/clans?page=1&pageSize=20&sort=Diamonds&sortOrder=desc&search=" +
-        encodeURIComponent(search)
+        "https://ps99.biggamesapi.io/api/clans?page=1&pageSize=100&sort=Diamonds&sortOrder=desc"
       );
 
     const result =
       await response.json();
 
     console.log(
-      "CLAN SEARCH:",
+      "CLAN LEADERBOARD:",
       result
     );
 
   } catch (error) {
 
     console.error(
-      "Could not search clans:",
+      "Could not load clans:",
       error
     );
-
-    clanSearchResults.innerHTML =
-      "<div style='text-align:center;'>Could not load clans ♡</div>";
 
   }
 }
