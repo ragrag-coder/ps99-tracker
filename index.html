@@ -1817,7 +1817,7 @@ clansNav.classList.remove("active");
     console.log("CLAN DATA:", clan);
 
     const response = await fetch(
-  `https://ps99.biggamesapi.io/api/clans/${encodeURIComponent(clan.Name)}`
+  `https://ps99.biggamesapi.io/api/clan/${encodeURIComponent(clan.Name)}`
 );
 
 const clanDetails = await response.json();
