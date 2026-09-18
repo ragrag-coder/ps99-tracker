@@ -436,12 +436,12 @@
   Leagues
 </a>
 
-  <a
-    href="#"
-    id="clansNav">
-    Clans
-  </a>
-</nav>
+<a
+  href="#"
+  id="clansNav"
+  onclick="showClans(event)">
+  Clans
+</a>
 
 </header>
 
@@ -594,6 +594,36 @@
 
   </div>
 
+<!-- CLANS PAGE -->
+
+<div id="clansPage" style="display:none;">
+
+  <div class="profile-card">
+
+    <div class="profile-header">
+
+      <div class="profile-crown">
+        🎀
+      </div>
+
+      <h2>
+        PS99 Clans
+      </h2>
+
+      <div>
+        Search and explore clans ♡
+      </div>
+
+    </div>
+
+    <div style="text-align:center; padding:40px;">
+      Clan tracker coming soon ♡
+    </div>
+
+  </div>
+
+</div>
+  
 <!-- PLAYERS PAGE -->
 
 <div id="playersPage" style="display:none;">
@@ -1312,6 +1342,9 @@ clansNav.classList.remove("active");
   playerProfile.style.display =
     "none";
 
+  clansPage.style.display =
+  "none";
+
   // Show Players page
   playersPage.style.display =
     "block";
@@ -1331,8 +1364,29 @@ clansNav.classList.remove("active");
   playersPage.style.display = "none";
   playerProfile.style.display = "none";
   leagueProfile.style.display = "none";
+  clansPage.style.display = "none";
 
+    
   leaderboardPage.style.display = "block";
+
+}
+
+  function showClans(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  clansNav.classList.add("active");
+  playersNav.classList.remove("active");
+  leaguesNav.classList.remove("active");
+
+  playersPage.style.display = "none";
+  playerProfile.style.display = "none";
+  leagueProfile.style.display = "none";
+  leaderboardPage.style.display = "none";
+
+  clansPage.style.display = "block";
 }
 
   let playerSearchTimer;
