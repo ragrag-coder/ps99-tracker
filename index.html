@@ -1334,7 +1334,7 @@ async function searchPlayers(search) {
       await fetch(
         "https://ps99.biggamesapi.io/v1/players/" +
         encodeURIComponent(player.username) +
-        "?include=profile"
+        "?include=profile,extendedProfile"
       );
 
     const result =
