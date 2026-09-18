@@ -754,9 +754,11 @@
 
     <div class="back-area">
 
-      <button onclick="closePlayer()">
-        ← Back to League ♡
-      </button>
+      <button
+  id="playerBackButton"
+  onclick="closePlayer()">
+  ← Back to League ♡
+</button>
 
     </div>
 
@@ -1206,7 +1208,14 @@ function closeLeague() {
 
 }
 
+let playerProfileSource = "league";
+  
   function showPlayer(player, robloxUser, league) {
+
+    playerProfileSource = "league";
+
+playerBackButton.textContent =
+  "← Back to League ♡";
 
   leagueProfile.style.display =
     "none";
@@ -1250,12 +1259,19 @@ function closeLeague() {
 
 function closePlayer() {
 
-  playerProfile.style.display =
-    "none";
+  playerProfile.style.display = "none";
 
-  leagueProfile.style.display =
-    "block";
+  if (playerProfileSource === "players") {
 
+    playersPage.style.display = "block";
+    leagueProfile.style.display = "none";
+
+  } else {
+
+    leagueProfile.style.display = "block";
+    playersPage.style.display = "none";
+
+  }
 }
 
 function showPlayers(event) {
@@ -1424,6 +1440,11 @@ async function searchPlayers(search) {
 }
   
   async function openPublicPlayer(player) {
+
+    playerProfileSource = "players";
+
+playerBackButton.textContent =
+  "← Back to Players ♡";
 
     publicPlayerStats.style.display =
   "none";
