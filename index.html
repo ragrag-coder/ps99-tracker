@@ -587,6 +587,41 @@
 #playersPage .search-wrapper {
   margin-top: 12px;
 }
+
+/* CURVED PS99 TITLE */
+
+.curved-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+
+  font-family: "Fredoka", sans-serif;
+}
+
+.curved-title span {
+  display: inline-block;
+}
+
+/* Venstre side */
+.curved-title span:nth-child(1) { transform: translateY(10px) rotate(-8deg); }
+.curved-title span:nth-child(2) { transform: translateY(5px) rotate(-5deg); }
+.curved-title span:nth-child(3) { transform: translateY(2px) rotate(-3deg); }
+.curved-title span:nth-child(4) { transform: translateY(0); }
+
+/* Mellomrom */
+.curved-title span:nth-child(5) {
+  width: 12px;
+}
+
+/* Høyre side */
+.curved-title span:nth-child(6) { transform: translateY(0); }
+.curved-title span:nth-child(7) { transform: translateY(1px); }
+.curved-title span:nth-child(8) { transform: translateY(2px); }
+.curved-title span:nth-child(9) { transform: translateY(3px); }
+.curved-title span:nth-child(10) { transform: translateY(5px); }
+.curved-title span:nth-child(11) { transform: translateY(7px); }
+.curved-title span:nth-child(12) { transform: translateY(10px) rotate(5deg); }
     
   </style>
 </head>
@@ -599,9 +634,20 @@
     ✦　♡　✧　♡　✦
   </div>
 
-  <h1>
-    ♡ PS99 Tracker ♡
-  </h1>
+  <h1 class="curved-title">
+  <span>P</span>
+  <span>S</span>
+  <span>9</span>
+  <span>9</span>
+  <span class="title-space">&nbsp;</span>
+  <span>T</span>
+  <span>r</span>
+  <span>a</span>
+  <span>c</span>
+  <span>k</span>
+  <span>e</span>
+  <span>r</span>
+</h1>
 
   <div class="subtitle">
     Track ♡ Compare ♡ Climb
