@@ -1917,29 +1917,7 @@ console.log(
   presenceUsers
 );
 
-    const lastOnlineResponse = await fetch(
-  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
-  {
-    method: "POST",
-
-    headers: {
-      "Content-Type": "application/json"
-    },
-
-    body: JSON.stringify({
-      type: "lastOnline",
-      userIds: userIds.slice(0, 40)
-    })
-  }
-);
-
-const lastOnlineResult =
-  await lastOnlineResponse.json();
-
-console.log(
-  "LAST ONLINE:",
-  lastOnlineResult
-);
+    
 
     const presenceByUser = {};
 
@@ -2013,7 +1991,42 @@ const points =
   const presence =
   presenceByUser[Number(member.UserID)];
 
-let status = "⚫ Offline";
+  function formatOfflineTime(offlineSince) {
+
+  if (!offlineSince) {
+    return "";
+  }
+
+  const milliseconds =
+    Date.now() - new Date(offlineSince).getTime();
+
+  const minutes =
+    Math.floor(milliseconds / 60000);
+
+  if (minutes < 60) {
+    return `${minutes}m`;
+  }
+
+  const hours =
+    Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `${hours}h ${minutes % 60}m`;
+  }
+
+  const days =
+    Math.floor(hours / 24);
+
+  return `${days}d ${hours % 24}h`;
+}
+
+const offlineTime =
+  formatOfflineTime(
+    presence?.offlineSince
+  );
+
+let status =
+  `⚫ Offline${offlineTime ? ` • ${offlineTime}` : ""}`;
 
 if (presence) {
 
