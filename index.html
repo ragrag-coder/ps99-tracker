@@ -1425,6 +1425,29 @@ if (
           .toLocaleString()
       : "-";
 
+  const playtimeSeconds =
+  Number(data.Age);
+
+if (
+  Number.isFinite(playtimeSeconds)
+) {
+  const days =
+    Math.floor(
+      playtimeSeconds / 86400
+    );
+
+  const hours =
+    Math.floor(
+      (playtimeSeconds % 86400) / 3600
+    );
+
+  playerTime.textContent =
+    `${days}d ${hours}h`;
+} else {
+  playerTime.textContent =
+    "-";
+}
+
 }
 
 
