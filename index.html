@@ -1485,6 +1485,37 @@ playerSearchInput.addEventListener(
       result
     );
 
+    if (
+  result.status === "ok" &&
+  Array.isArray(result.data)
+) {
+
+  clanSearchResults.innerHTML =
+    result.data
+      .map((clan, index) => {
+
+        const rank = index + 1;
+
+        let medal = "";
+
+        if (rank === 1) medal = "🥇";
+        if (rank === 2) medal = "🥈";
+        if (rank === 3) medal = "🥉";
+
+        return `
+          <div class="member-card">
+
+            <div class="member-name">
+              ${medal} #${rank} ${clan.Name}
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
   } catch (error) {
 
     console.error(
