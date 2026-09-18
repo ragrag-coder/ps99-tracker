@@ -1843,6 +1843,28 @@ const clanDetails = await response.json();
 
     const members = clanDetails.data?.Members || [];
 
+    const pointsByUser = {};
+
+const battles =
+  clanDetails.data?.Battles || {};
+
+Object.values(battles).forEach(battle => {
+
+  const contributions =
+    battle.PointContributions || [];
+
+  contributions.forEach(player => {
+
+    const userId = Number(player.UserID);
+
+    pointsByUser[userId] =
+      (pointsByUser[userId] || 0) +
+      Number(player.Points || 0);
+
+  });
+
+});
+
     const userIds = members.map(member =>
   Number(member.UserID)
 );
@@ -1896,18 +1918,49 @@ clanMembersList.innerHTML = members.map(member => {
     year: "numeric"
   });
 
-  return `
-    <div class="member-card">
-      <div>
-        <strong>
-  ${robloxUsers[Number(member.UserID)]?.displayName || member.UserID}
-</strong>
-        <div class="small-text">
-          Joined ${joined}
-        </div>
+  const robloxUser =
+  robloxUsers[Number(member.UserID)];
+
+const displayName =
+  robloxUser?.displayName || member.UserID;
+
+const username =
+  robloxUser?.name || "";
+
+const points =
+  pointsByUser[Number(member.UserID)] || 0;
+
+return `
+  <div class="member-card">
+
+    <div>
+      <div class="member-name">
+        ♡ ${displayName}
+      </div>
+
+      ${
+        username
+          ? `<div class="member-username">
+               @${username}
+             </div>`
+          : ""
+      }
+
+      <div class="small-text">
+        Joined ${joined}
       </div>
     </div>
-  `;
+
+    <div class="member-points">
+      ${points.toLocaleString()}
+
+      <div class="member-username">
+        points
+      </div>
+    </div>
+
+  </div>
+`;
 
 }).join("");
 
