@@ -617,6 +617,29 @@ font-weight: 700;
     inset 0 2px 2px rgba(255, 255, 255, 0.8);
 }
 
+    .curved-title span {
+  position: relative;
+}
+
+.curved-title span::after {
+  content: "";
+  position: absolute;
+
+  top: 18%;
+  left: 22%;
+
+  width: 28%;
+  height: 12%;
+
+  background: rgba(255, 255, 255, 0.8);
+
+  border-radius: 999px;
+
+  filter: blur(1px);
+
+  pointer-events: none;
+}
+
 /* Venstre side */
 .curved-title span:nth-child(1) { transform: translateY(10px) rotate(-8deg); }
 .curved-title span:nth-child(2) { transform: translateY(5px) rotate(-5deg); }
