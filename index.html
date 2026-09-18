@@ -502,6 +502,80 @@
 
   </div>
 
+  <!-- PLAYER PROFILE -->
+
+<div id="playerProfile" style="display:none;">
+
+  <div class="profile-card">
+
+    <div class="profile-header">
+
+      <div class="profile-crown">
+        💗
+      </div>
+
+      <h2 id="playerDisplayName">
+        Player
+      </h2>
+
+      <div id="playerUsername">
+        @username
+      </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <div
+          class="stat-number"
+          id="playerLeaguePoints">
+          -
+        </div>
+
+        <div class="stat-label">
+          League Points
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div
+          class="stat-number"
+          id="playerLeagueName">
+          -
+        </div>
+
+        <div class="stat-label">
+          League
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="members-title">
+      ♡ Player Profile
+    </div>
+
+
+    <div class="back-area">
+
+      <button onclick="closePlayer()">
+        ← Back to League ♡
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 </main>
 
 
@@ -838,6 +912,17 @@ async function showLeague(name) {
       member.className =
         "member-card";
 
+      member.style.cursor =
+  "pointer";
+
+member.onclick = () => {
+  showPlayer(
+    player,
+    robloxUser,
+    league
+  );
+};
+
 
       member.innerHTML = `
 
@@ -933,6 +1018,57 @@ function closeLeague() {
 
 }
 
+  function showPlayer(player, robloxUser, league) {
+
+  leagueProfile.style.display =
+    "none";
+
+  playerProfile.style.display =
+    "block";
+
+
+  const username =
+    robloxUser
+      ? robloxUser.name
+      : player.UserID;
+
+
+  const displayName =
+    robloxUser
+      ? robloxUser.displayName
+      : username;
+
+
+  playerDisplayName.textContent =
+    displayName;
+
+
+  playerUsername.textContent =
+    robloxUser
+      ? "@" + username
+      : "Roblox ID: " + player.UserID;
+
+
+  playerLeaguePoints.textContent =
+    Number(player.Points)
+      .toLocaleString();
+
+
+  playerLeagueName.textContent =
+    league.Name || profileName.textContent;
+
+}
+
+
+function closePlayer() {
+
+  playerProfile.style.display =
+    "none";
+
+  leagueProfile.style.display =
+    "block";
+
+}
 
 loadLeagues();
 
