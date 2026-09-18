@@ -1813,8 +1813,16 @@ clansNav.classList.remove("active");
   loadClans();
 }
 
-  function showClan(clan) {
+  async function showClan(clan) {
     console.log("CLAN DATA:", clan);
+
+    const response = await fetch(
+  `https://ps99.biggamesapi.io/api/clans/${encodeURIComponent(clan.Name)}`
+);
+
+const clanDetails = await response.json();
+
+console.log("CLAN DETAILS:", clanDetails);
 
   clansPage.style.display = "none";
   clanProfile.style.display = "block";
