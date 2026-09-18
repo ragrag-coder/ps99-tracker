@@ -1917,6 +1917,30 @@ console.log(
   presenceUsers
 );
 
+    const lastOnlineResponse = await fetch(
+  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+  {
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      type: "lastOnline",
+      userIds: userIds.slice(0, 40)
+    })
+  }
+);
+
+const lastOnlineResult =
+  await lastOnlineResponse.json();
+
+console.log(
+  "LAST ONLINE:",
+  lastOnlineResult
+);
+
     const presenceByUser = {};
 
 presenceUsers.forEach(presence => {
