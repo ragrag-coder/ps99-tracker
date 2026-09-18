@@ -1879,28 +1879,42 @@ members.sort((a, b) => {
   Number(member.UserID)
 );
 
-    const presenceResponse = await fetch(
-  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
-  {
-    method: "POST",
+    const presenceUsers = [];
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+for (let i = 0; i < userIds.length; i += 40) {
 
-    body: JSON.stringify({
-      type: "presence",
-      userIds: userIds
-    })
+  const batch =
+    userIds.slice(i, i + 40);
+
+  const presenceResponse = await fetch(
+    "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        type: "presence",
+        userIds: batch
+      })
+    }
+  );
+
+  const presenceResult =
+    await presenceResponse.json();
+
+  if (presenceResult.userPresences) {
+    presenceUsers.push(
+      ...presenceResult.userPresences
+    );
   }
-);
-
-const presenceResult =
-  await presenceResponse.json();
+}
 
 console.log(
   "CLAN PRESENCE:",
-  presenceResult
+  presenceUsers
 );
 
 const robloxUsers = {};
