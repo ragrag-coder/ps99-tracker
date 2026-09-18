@@ -485,6 +485,44 @@
       </div>
 
       <div
+  id="publicPlayerStats"
+  class="stats-grid"
+  style="display:none; margin-top:20px;"
+>
+
+  <div class="stat-card">
+    <div class="stat-number" id="playerRank">-</div>
+    <div class="stat-label">Rank</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="playerRebirths">-</div>
+    <div class="stat-label">Rebirths</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="playerEggsHatched">-</div>
+    <div class="stat-label">Eggs Hatched</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="playerMastery">-</div>
+    <div class="stat-label">Mastery</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="playerGamepasses">-</div>
+    <div class="stat-label">Gamepasses</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="playerTime">-</div>
+    <div class="stat-label">Player Time</div>
+  </div>
+
+</div>
+
+      <div
         class="members-grid"
         id="memberList">
       </div>
@@ -1259,6 +1297,9 @@ async function searchPlayers(search) {
 
   async function openPublicPlayer(player) {
 
+    publicPlayerStats.style.display =
+  "none";
+
   // Hide Players page
   playersPage.style.display =
     "none";
@@ -1321,6 +1362,40 @@ async function searchPlayers(search) {
       "Public PS99 data:",
       result.data
     );
+
+    const profile =
+  result.data.views?.profile;
+
+
+if (
+  profile &&
+  profile.available &&
+  profile.data
+) {
+
+  const data =
+    profile.data;
+
+
+  publicPlayerStats.style.display =
+    "grid";
+
+
+  playerRank.textContent =
+    data.Rank ?? "-";
+
+
+  playerRebirths.textContent =
+    data.Rebirths ?? "-";
+
+
+  playerEggsHatched.textContent =
+    data.EggsHatched != null
+      ? Number(data.EggsHatched)
+          .toLocaleString()
+      : "-";
+
+}
 
 
   } catch (error) {
