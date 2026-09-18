@@ -163,11 +163,19 @@
         const row = document.createElement("tr");
 
         row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${league.Name}</td>
-          <td>${league.Points.toLocaleString()}</td>
-          <td>${league.Members}/${league.MemberCapacity}</td>
-        `;
+  <td>${index + 1}</td>
+  <td>
+    <a
+      href="#"
+      onclick="showLeague('${league.Name.replace(/'/g, "\\'")}'); return false;"
+      style="color: white; font-weight: bold;"
+    >
+      ${league.Name}
+    </a>
+  </td>
+  <td>${league.Points.toLocaleString()}</td>
+  <td>${league.Members}/${league.MemberCapacity}</td>
+`;
 
         leaderboard.appendChild(row);
       });
@@ -193,6 +201,74 @@
     }, 400);
   });
 
+async function showLeague(name) {
+  leaderboard.innerHTML = `
+    <tr>
+      <td colspan="4">Loading ${name}...</td>
+    </tr>
+  `;
+
+  try {
+    const response = await fetch(
+      "https://ps99.biggamesapi.io/v1/leagues/" +
+      encodeURIComponent(name)
+    );
+
+    const result = await response.json();
+    const league = result.data;
+
+    leaderboard.innerHTML = `
+      <tr>
+        <th>Player</th>
+        <th>Points</th>
+        <th colspan="2">Role</th>
+      </tr>
+    `;
+
+    league.PointContributions.forEach(player => {
+
+      const isOwner =
+        league.Owner &&
+        league.Owner.UserID === player.UserID;
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${player.DisplayName}</td>
+        <td>${player.Points.toLocaleString()}</td>
+        <td colspan="2">
+          ${isOwner ? "Owner 👑" : "Member"}
+        </td>
+      `;
+
+      leaderboard.appendChild(row);
+    });
+
+    const backRow = document.createElement("tr");
+
+    backRow.innerHTML = `
+      <td colspan="4" style="padding-top: 25px;">
+        <button onclick="loadLeagues()">
+          ← Back to leaderboard
+        </button>
+      </td>
+    `;
+
+    leaderboard.appendChild(backRow);
+
+  } catch (error) {
+    console.error(error);
+
+    leaderboard.innerHTML = `
+      <tr>
+        <td colspan="4">
+          Could not load league.
+        </td>
+      </tr>
+    `;
+  }
+}
+    
   loadLeagues();
 </script>
   
