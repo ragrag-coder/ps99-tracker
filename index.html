@@ -86,11 +86,12 @@
 
 <main>
 
-  <input
-    class="search"
-    type="text"
-    placeholder="Search player, league or clan..."
-  >
+ <input
+  id="leagueSearch"
+  class="search"
+  type="text"
+  placeholder="Search for a league..."
+>
 
   <div class="card">
 
@@ -118,18 +119,45 @@
 </main>
 
   <script>
-  async function loadLeagues() {
-    const leaderboard = document.getElementById("leaderboard");
+  const leaderboard = document.getElementById("leaderboard");
+  const searchInput = document.getElementById("leagueSearch");
+
+  async function loadLeagues(search = "") {
+    leaderboard.innerHTML = `
+      <tr>
+        <td colspan="4">Loading...</td>
+      </tr>
+    `;
 
     try {
-      const response = await fetch(
-        "https://ps99.biggamesapi.io/v1/leagues?page=1&pageSize=100&sort=Points&sortOrder=desc"
-      );
+      let url;
 
+      if (search.trim() === "") {
+        // No search: show Top 100
+        url =
+          "https://ps99.biggamesapi.io/v1/leagues?page=1&pageSize=100&sort=Points&sortOrder=desc";
+      } else {
+        // Search all PS99 leagues
+        url =
+          "https://ps99.biggamesapi.io/v1/leagues?page=1&pageSize=100&sort=Points&sortOrder=desc&search=" +
+          encodeURIComponent(search.trim());
+      }
+
+      const response = await fetch(url);
       const result = await response.json();
+
       const leagues = result.data.leagues;
 
       leaderboard.innerHTML = "";
+
+      if (leagues.length === 0) {
+        leaderboard.innerHTML = `
+          <tr>
+            <td colspan="4">No leagues found.</td>
+          </tr>
+        `;
+        return;
+      }
 
       leagues.forEach((league, index) => {
         const row = document.createElement("tr");
@@ -154,6 +182,16 @@
       `;
     }
   }
+
+  let searchTimer;
+
+  searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+
+    searchTimer = setTimeout(() => {
+      loadLeagues(searchInput.value);
+    }, 400);
+  });
 
   loadLeagues();
 </script>
