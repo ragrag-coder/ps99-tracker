@@ -1917,6 +1917,14 @@ console.log(
   presenceUsers
 );
 
+    const presenceByUser = {};
+
+presenceUsers.forEach(presence => {
+  presenceByUser[
+    Number(presence.userId)
+  ] = presence;
+});
+
 const robloxUsers = {};
 
 try {
@@ -1978,6 +1986,35 @@ const username =
 const points =
   pointsByUser[Number(member.UserID)] || 0;
 
+  const presence =
+  presenceByUser[Number(member.UserID)];
+
+let status = "⚫ Offline";
+
+if (presence) {
+
+  if (
+    presence.userPresenceType === 2 &&
+    Number(presence.rootPlaceId) === 8737899170
+  ) {
+    status = "🟢 In PS99";
+  }
+
+  else if (
+    presence.userPresenceType === 2
+  ) {
+    status = "🔵 In Game";
+  }
+
+  else if (
+    presence.userPresenceType === 1 ||
+    presence.userPresenceType === 3
+  ) {
+    status = "🟡 Online";
+  }
+
+}
+
 return `
   <div class="member-card">
 
@@ -1993,6 +2030,10 @@ return `
              </div>`
           : ""
       }
+
+      <div class="member-status">
+  ${status}
+</div>
 
       <div class="small-text">
         Joined ${joined}
