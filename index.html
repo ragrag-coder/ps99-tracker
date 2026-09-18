@@ -638,6 +638,77 @@
   </div>
 
 </div>
+
+  <!-- CLAN PROFILE -->
+
+<div id="clanProfile" style="display:none;">
+
+  <div class="profile-card">
+
+    <div class="profile-header">
+
+      <div class="profile-crown">
+        🎀
+      </div>
+
+      <h2 id="clanProfileName">
+        Clan
+      </h2>
+
+      <div>
+        PS99 Clan Profile ♡
+      </div>
+
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div
+          class="stat-number"
+          id="clanProfilePoints">
+          -
+        </div>
+        <div class="stat-label">
+          Points
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div
+          class="stat-number"
+          id="clanProfileMembers">
+          -
+        </div>
+        <div class="stat-label">
+          Members
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div
+          class="stat-number"
+          id="clanProfileDiamonds">
+          -
+        </div>
+        <div class="stat-label">
+          Deposited Diamonds
+        </div>
+      </div>
+
+    </div>
+
+    <div class="back-area">
+
+      <button onclick="closeClan()">
+        ← Back to Clans ♡
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
   
 <!-- PLAYERS PAGE -->
 
@@ -1380,6 +1451,7 @@ clansNav.classList.remove("active");
   playerProfile.style.display = "none";
   leagueProfile.style.display = "none";
   clansPage.style.display = "none";
+  clanProfile.style.display = "none";
 
     
   leaderboardPage.style.display = "block";
@@ -1400,12 +1472,39 @@ clansNav.classList.remove("active");
   playerProfile.style.display = "none";
   leagueProfile.style.display = "none";
   leaderboardPage.style.display = "none";
+  clanProfile.style.display = "none";
 
   clansPage.style.display = "block";
     
   loadClans();
 }
 
+  function showClan(clan) {
+
+  clansPage.style.display = "none";
+  clanProfile.style.display = "block";
+
+  clanProfileName.textContent =
+    clan.Name || "Clan";
+
+  clanProfilePoints.textContent =
+    Number(clan.Points).toLocaleString();
+
+  clanProfileMembers.textContent =
+    `${clan.Members} / ${clan.MemberCapacity}`;
+
+  clanProfileDiamonds.textContent =
+    Number(clan.DepositedDiamonds)
+      .toLocaleString();
+}
+
+  function closeClan() {
+
+  clanProfile.style.display = "none";
+  clansPage.style.display = "block";
+
+}
+  
   let playerSearchTimer;
   let clanSearchTimer;
 
@@ -1503,7 +1602,10 @@ playerSearchInput.addEventListener(
         if (rank === 3) medal = "🥉";
 
         return `
-          <div class="member-card">
+          <div
+  class="member-card"
+  style="cursor:pointer;"
+  onclick='showClan(${JSON.stringify(clan)})'>
 
             <div class="member-name">
               ${medal} #${rank} ${clan.Name}
