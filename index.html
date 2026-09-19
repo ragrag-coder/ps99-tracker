@@ -2370,13 +2370,20 @@ if (presence) {
         robloxUsers[userId];
 
       if (member) {
-        showPlayer(
-          member,
-          robloxUser,
-          null,
-          "clan"
-        );
-      }
+
+  const clanPlayer = {
+    ...member,
+    Points: pointsByUser[userId] || 0
+  };
+
+  showPlayer(
+    clanPlayer,
+    robloxUser,
+    null,
+    "clan"
+  );
+
+}
 
     });
 
