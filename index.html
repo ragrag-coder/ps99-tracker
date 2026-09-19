@@ -2041,6 +2041,53 @@ console.log(
   topClanMembers
 );
 
+    const enchantRobloxUsers = {};
+
+const enchantUserIds =
+  topClanMembers.map(member =>
+    Number(member.UserID)
+  );
+
+for (let i = 0; i < enchantUserIds.length; i += 100) {
+
+  const batch =
+    enchantUserIds.slice(i, i + 100);
+
+  const robloxResponse = await fetch(
+    "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        userIds: batch,
+        excludeBannedUsers: false
+      })
+    }
+  );
+
+  if (robloxResponse.ok) {
+
+    const robloxResult =
+      await robloxResponse.json();
+
+    robloxResult.data.forEach(user => {
+      enchantRobloxUsers[user.id] = user;
+    });
+
+  }
+
+}
+
+console.log(
+  "ENCHANT ROBLOX USERS:",
+  Object.keys(enchantRobloxUsers).length,
+  enchantRobloxUsers
+);
+
 }
 
   function showLeagues(event) {
