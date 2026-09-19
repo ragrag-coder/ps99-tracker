@@ -2009,6 +2009,27 @@ console.log(
   top10Clans
 );
 
+    const firstClan =
+  top10Clans[0];
+
+if (firstClan) {
+
+  const clanResponse = await fetch(
+    "https://ps99.biggamesapi.io/api/clan/" +
+    encodeURIComponent(firstClan.Name)
+  );
+
+  const clanResult =
+    await clanResponse.json();
+
+  console.log(
+    "ENCHANT TEST CLAN:",
+    firstClan.Name,
+    clanResult
+  );
+
+}
+
 }
 
   function showLeagues(event) {
