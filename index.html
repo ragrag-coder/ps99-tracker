@@ -2376,7 +2376,7 @@ if (presence) {
     displayName: robloxUser.displayName
   };
 
-  openPublicPlayer(clanPlayer);
+  openPublicPlayer(clanPlayer, "clan");
 
 }
 
@@ -2648,12 +2648,14 @@ async function searchPlayers(search) {
   return 99;
 }
   
-  async function openPublicPlayer(player) {
+  async function openPublicPlayer(player, source = "players") {
 
-    playerProfileSource = "players";
+    playerProfileSource = source;
 
 playerBackButton.textContent =
-  "← Back to Players ♡";
+  source === "clan"
+    ? "← Back to Clan ♡"
+    : "← Back to Players ♡";
 
     publicPlayerStats.style.display =
   "none";
