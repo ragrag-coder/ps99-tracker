@@ -2345,6 +2345,37 @@ if (presence) {
 
 }).join("");
 
+    clanMembersList
+  .querySelectorAll(".member-card")
+  .forEach(card => {
+
+    card.addEventListener("click", () => {
+
+      const userId =
+        Number(card.dataset.userId);
+
+      const member =
+        members.find(
+          item =>
+            Number(item.UserID) === userId
+        );
+
+      const robloxUser =
+        robloxUsers[userId];
+
+      if (member) {
+        showPlayer(
+          member,
+          robloxUser,
+          null,
+          "clan"
+        );
+      }
+
+    });
+
+  });
+
 console.log("CLAN DETAILS:", clanDetails);
 
   clansPage.style.display = "none";
