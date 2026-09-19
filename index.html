@@ -720,6 +720,40 @@ font-weight: 700;
     object-position: center;
   }
 }
+
+.member-avatar {
+  width: 82px;
+  height: 82px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    145deg,
+    #ffd9ea,
+    #ffacd2
+  );
+
+  border: 3px solid #ffc1df;
+
+  box-shadow:
+    0 5px 15px rgba(255, 92, 168, 0.18);
+
+  font-size: 34px;
+  color: white;
+}
+
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
     
   </style>
 </head>
@@ -1903,6 +1937,16 @@ console.log(
   avatarResult
 );
 
+    const avatarsByUser = {};
+
+avatarResult.data.forEach(avatar => {
+
+  avatarsByUser[
+    Number(avatar.targetId)
+  ] = avatar.imageUrl;
+
+});
+
     const presenceUsers = [];
 
 for (let i = 0; i < userIds.length; i += 40) {
@@ -2012,6 +2056,9 @@ const username =
 const points =
   pointsByUser[Number(member.UserID)] || 0;
 
+  const avatarUrl =
+  avatarsByUser[Number(member.UserID)] || "";
+
   const presence =
   presenceByUser[Number(member.UserID)];
 
@@ -2084,6 +2131,14 @@ if (presence) {
 
 return `
   <div class="member-card">
+
+    <div class="member-avatar">
+      ${
+        avatarUrl
+          ? `<img src="${avatarUrl}" alt="${displayName}">`
+          : `<span>♡</span>`
+      }
+    </div>
 
     <div>
       <div class="member-name">
