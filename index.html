@@ -2048,10 +2048,10 @@ const enchantUserIds =
     Number(member.UserID)
   );
 
-for (let i = 0; i < enchantUserIds.length; i += 100) {
+for (let i = 0; i < enchantUserIds.length; i += 50) {
 
   const batch =
-    enchantUserIds.slice(i, i + 100);
+    enchantUserIds.slice(i, i + 50);
 
   const robloxResponse = await fetch(
     "https://ps99-roblox-api.ps99-tracker.workers.dev/",
