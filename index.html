@@ -2009,26 +2009,37 @@ console.log(
   top10Clans
 );
 
-    const firstClan =
-  top10Clans[0];
+    const topClanMembers = [];
 
-if (firstClan) {
+for (const clan of top10Clans) {
 
   const clanResponse = await fetch(
     "https://ps99.biggamesapi.io/api/clan/" +
-    encodeURIComponent(firstClan.Name)
+    encodeURIComponent(clan.Name)
   );
 
   const clanResult =
     await clanResponse.json();
 
-  console.log(
-    "ENCHANT TEST CLAN:",
-    firstClan.Name,
-    clanResult
-  );
+  const members =
+    clanResult.data?.Members || [];
+
+  members.forEach(member => {
+
+    topClanMembers.push({
+      ...member,
+      clanName: clan.Name
+    });
+
+  });
 
 }
+
+console.log(
+  "TOP 10 CLAN MEMBERS:",
+  topClanMembers.length,
+  topClanMembers
+);
 
 }
 
