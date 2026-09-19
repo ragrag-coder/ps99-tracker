@@ -1807,12 +1807,17 @@ function closeLeague() {
 
 let playerProfileSource = "league";
   
-  function showPlayer(player, robloxUser, league) {
+  function showPlayer(player, robloxUser, league, source = "league") {
 
-    playerProfileSource = "league";
+    playerProfileSource = source;
 
-playerBackButton.textContent =
-  "← Back to League ♡";
+if (source === "clan") {
+  playerBackButton.textContent =
+    "← Back to Clan ♡";
+} else {
+  playerBackButton.textContent =
+    "← Back to League ♡";
+}
 
   leagueProfile.style.display =
     "none";
@@ -2291,7 +2296,15 @@ if (presence) {
 }
 
   return `
-  <div class="member-card">
+  <div
+  class="member-card"
+  style="cursor:pointer;"
+  onclick='showPlayer(
+    ${JSON.stringify(member)},
+    ${JSON.stringify(robloxUser)},
+    null,
+    "clan"
+  )'>
 
     <div class="member-rank">
       ${index === 0 ? "♛" : ""}
