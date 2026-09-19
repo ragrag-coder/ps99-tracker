@@ -2012,9 +2012,6 @@ if (top50Clan && currentRank) {
     document.getElementById("clanTop50").textContent =
       pointsToTop50.toLocaleString();
 
-    document.getElementById("clanTop50Label").textContent =
-      "To Top 50";
-
   } else {
 
     const pointsAboveTop50 =
@@ -2023,9 +2020,6 @@ if (top50Clan && currentRank) {
 
     document.getElementById("clanTop50").textContent =
       `+${pointsAboveTop50.toLocaleString()}`;
-
-    document.getElementById("clanTop50Label").textContent =
-      "Above Top 50";
 
   }
 
