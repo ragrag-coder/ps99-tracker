@@ -1975,6 +1975,55 @@ document.getElementById("clanToNext").textContent =
   clanAbove
     ? pointsToNext.toLocaleString()
     : "🏆";
+
+    const clanBelow =
+  clanIndex !== -1 &&
+  clanIndex < clanLeaderboard.length - 1
+    ? clanLeaderboard[clanIndex + 1]
+    : null;
+
+const leadOver =
+  clanBelow
+    ? Number(clan.Points) - Number(clanBelow.Points) + 1
+    : 0;
+
+document.getElementById("clanLeadOver").textContent =
+  clanBelow
+    ? leadOver.toLocaleString()
+    : "-";
+
+const top50Clan = clanLeaderboard[49];
+
+if (top50Clan && currentRank) {
+
+  if (currentRank > 50) {
+
+    const pointsToTop50 =
+      Number(top50Clan.Points) -
+      Number(clan.Points) +
+      1;
+
+    document.getElementById("clanTop50").textContent =
+      pointsToTop50.toLocaleString();
+
+    document.getElementById("clanTop50Label").textContent =
+      "To Top 50";
+
+  } else {
+
+    const pointsAboveTop50 =
+      Number(clan.Points) -
+      Number(top50Clan.Points);
+
+    document.getElementById("clanTop50").textContent =
+      `+${pointsAboveTop50.toLocaleString()}`;
+
+    document.getElementById("clanTop50Label").textContent =
+      "Above Top 50";
+
+  }
+
+}
     
     console.log("CLAN DATA:", clan);
 
