@@ -2041,6 +2041,8 @@ const clanDetails = await response.json();
 const battles =
   clanDetails.data?.Battles || {};
 
+    console.log("CLAN BATTLES:", battles);
+
 Object.values(battles).forEach(battle => {
 
   const contributions =
