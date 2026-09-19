@@ -872,6 +872,13 @@ font-weight: 700;
       Players
     </a>
 
+   <a
+  href="#"
+  id="enchantsNav"
+  onclick="showEnchants(event)">
+  Enchants
+</a>
+
   </nav>
 
 </header>
@@ -1217,6 +1224,38 @@ font-weight: 700;
         Search for a player above ♡
       </div>
 
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- ENCHANTS PAGE -->
+
+<div id="enchantsPage" style="display:none;">
+
+  <div class="profile-card">
+
+    <div class="profile-header">
+
+      <div class="profile-crown">
+        🎀
+      </div>
+
+      <h2>
+        Top Clan Enchants
+      </h2>
+
+      <div>
+        Public enchant loadouts from Top 10 Clans ♡
+      </div>
+
+    </div>
+
+    <div id="enchantsResults">
+      <div style="text-align:center; padding:30px;">
+        Enchant loadouts coming soon ♡
+      </div>
     </div>
 
   </div>
@@ -1921,6 +1960,23 @@ clansNav.classList.remove("active");
   // Show Players page
   playersPage.style.display =
     "block";
+
+}
+
+  function showEnchants(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  leaderboardPage.style.display = "none";
+  leagueProfile.style.display = "none";
+  clansPage.style.display = "none";
+  clanProfile.style.display = "none";
+  playersPage.style.display = "none";
+  playerProfile.style.display = "none";
+
+  enchantsPage.style.display = "block";
 
 }
 
