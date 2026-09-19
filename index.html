@@ -2369,19 +2369,14 @@ if (presence) {
       const robloxUser =
         robloxUsers[userId];
 
-      if (member) {
+      if (member && robloxUser) {
 
   const clanPlayer = {
-    ...member,
-    Points: pointsByUser[userId] || 0
+    username: robloxUser.name,
+    displayName: robloxUser.displayName
   };
 
-  showPlayer(
-    clanPlayer,
-    robloxUser,
-    null,
-    "clan"
-  );
+  openPublicPlayer(clanPlayer);
 
 }
 
