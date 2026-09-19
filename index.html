@@ -1869,17 +1869,26 @@ function closePlayer() {
 
   playerProfile.style.display = "none";
 
-  if (playerProfileSource === "players") {
+  if (playerProfileSource === "clan") {
+
+    clanProfile.style.display = "block";
+    leagueProfile.style.display = "none";
+    playersPage.style.display = "none";
+
+  } else if (playerProfileSource === "players") {
 
     playersPage.style.display = "block";
+    clanProfile.style.display = "none";
     leagueProfile.style.display = "none";
 
   } else {
 
     leagueProfile.style.display = "block";
+    clanProfile.style.display = "none";
     playersPage.style.display = "none";
 
   }
+
 }
 
 function showPlayers(event) {
