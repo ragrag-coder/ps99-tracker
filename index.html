@@ -1964,7 +1964,7 @@ enchantsNav.classList.remove("active");
 
 }
 
-  function showEnchants(event) {
+  async function showEnchants(event) {
 
   if (event) {
     event.preventDefault();
@@ -1984,7 +1984,24 @@ enchantsNav.classList.add("active");
 
   enchantsPage.style.display = "block";
 
-    const top10Clans =
+    if (clanLeaderboard.length === 0) {
+
+  const response = await fetch(
+    "https://ps99.biggamesapi.io/api/clans?page=1&pageSize=100&sort=Points&sortOrder=desc"
+  );
+
+  const result = await response.json();
+
+  if (
+    result.status === "ok" &&
+    Array.isArray(result.data)
+  ) {
+    clanLeaderboard = result.data;
+  }
+
+}
+
+const top10Clans =
   clanLeaderboard.slice(0, 10);
 
 console.log(
