@@ -1854,7 +1854,9 @@ if (source === "clan") {
 
 
   playerLeagueName.textContent =
-    league.Name || profileName.textContent;
+  source === "clan"
+    ? "M4RB"
+    : (league?.Name || profileName.textContent);
 
 }
 
