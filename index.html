@@ -2290,7 +2290,10 @@ if (presence) {
 }
 
   return `
-  <div class="member-card">
+  <div
+  class="member-card"
+  style="cursor:pointer;"
+  data-user-id="${Number(member.UserID)}">
 
     <div class="member-rank">
       ${index === 0 ? "♛" : ""}
