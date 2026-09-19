@@ -1991,6 +1991,12 @@ const points =
   const presence =
   presenceByUser[Number(member.UserID)];
 
+  console.log(
+  "MEMBER PRESENCE:",
+  member.UserID,
+  presence
+);
+
   function formatOfflineTime(offlineSince) {
 
   if (!offlineSince) {
