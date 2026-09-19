@@ -1101,42 +1101,41 @@ font-weight: 700;
 
     </div>
 
-    <div class="stats-grid">
+<div class="stats-grid">
 
-      <div class="stat-card">
-        <div
-          class="stat-number"
-          id="clanProfilePoints">
-          -
-        </div>
-        <div class="stat-label">
-          Points
-        </div>
-      </div>
+  <div class="stat-card">
+    <div class="stat-number" id="clanProfilePoints">-</div>
+    <div class="stat-label">Points</div>
+  </div>
 
-      <div class="stat-card">
-        <div
-          class="stat-number"
-          id="clanProfileMembers">
-          -
-        </div>
-        <div class="stat-label">
-          Members
-        </div>
-      </div>
+  <div class="stat-card">
+    <div class="stat-number" id="clanProfileMembers">-</div>
+    <div class="stat-label">Members</div>
+  </div>
 
-      <div class="stat-card">
-        <div
-          class="stat-number"
-          id="clanProfileDiamonds">
-          -
-        </div>
-        <div class="stat-label">
-          Deposited Diamonds
-        </div>
-      </div>
+  <div class="stat-card">
+    <div class="stat-number" id="clanCurrentRank">-</div>
+    <div class="stat-label">Current Rank</div>
+  </div>
 
+  <div class="stat-card">
+    <div class="stat-number" id="clanToNext">-</div>
+    <div class="stat-label">To Next Clan</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="clanLeadOver">-</div>
+    <div class="stat-label">Lead Over</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number" id="clanTop50">-</div>
+    <div class="stat-label" id="clanTop50Label">
+      To Top 50
     </div>
+  </div>
+
+</div>
 
     <div class="card" style="margin-top: 25px;">
   <div class="card-title">
@@ -1947,6 +1946,20 @@ clansNav.classList.remove("active");
 }
 
   async function showClan(clan) {
+    
+    const clanIndex = clanLeaderboard.findIndex(
+  item => item.Name.toLowerCase() === clan.Name.toLowerCase()
+);
+
+const currentRank =
+  clanIndex !== -1
+    ? clanIndex + 1
+    : null;
+
+document.getElementById("clanCurrentRank").textContent =
+  currentRank
+    ? `#${currentRank}`
+    : "-";
     console.log("CLAN DATA:", clan);
 
     const response = await fetch(
@@ -2350,6 +2363,8 @@ playerSearchInput.addEventListener(
   }
 );
 
+  let clanLeaderboard = [];
+
   async function loadClans() {
 
   try {
@@ -2371,6 +2386,8 @@ playerSearchInput.addEventListener(
   result.status === "ok" &&
   Array.isArray(result.data)
 ) {
+
+      clanLeaderboard = result.data;
 
   clanSearchResults.innerHTML =
     result.data
