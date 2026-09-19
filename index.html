@@ -1820,10 +1820,14 @@ if (source === "clan") {
 }
 
   leagueProfile.style.display =
-    "none";
+  "none";
 
-  playerProfile.style.display =
-    "block";
+if (source === "clan") {
+  clanProfile.style.display = "none";
+}
+
+playerProfile.style.display =
+  "block";
 
 
   const username =
