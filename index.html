@@ -1960,6 +1960,22 @@ document.getElementById("clanCurrentRank").textContent =
   currentRank
     ? `#${currentRank}`
     : "-";
+
+    const clanAbove =
+  clanIndex > 0
+    ? clanLeaderboard[clanIndex - 1]
+    : null;
+
+const pointsToNext =
+  clanAbove
+    ? Number(clanAbove.Points) - Number(clan.Points) + 1
+    : 0;
+
+document.getElementById("clanToNext").textContent =
+  clanAbove
+    ? pointsToNext.toLocaleString()
+    : "🏆";
+    
     console.log("CLAN DATA:", clan);
 
     const response = await fetch(
