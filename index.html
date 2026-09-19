@@ -1879,6 +1879,30 @@ members.sort((a, b) => {
   Number(member.UserID)
 );
 
+    const avatarResponse = await fetch(
+  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+  {
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      type: "avatars",
+      userIds: userIds
+    })
+  }
+);
+
+const avatarResult =
+  await avatarResponse.json();
+
+console.log(
+  "CLAN AVATARS:",
+  avatarResult
+);
+
     const presenceUsers = [];
 
 for (let i = 0; i < userIds.length; i += 40) {
