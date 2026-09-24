@@ -2227,39 +2227,20 @@ const clanDetails = await response.json();
 const battles =
   clanDetails.data?.Battles || {};
 
-    const activeBattleResponse = await fetch(
-  "https://ps99.biggamesapi.io/api/activeClanBattle"
-);
+const activeBattle =
+  battles[activeBattleName];
 
-const activeBattleResult =
-  await activeBattleResponse.json();
-
-const activeBattleName =
-  activeBattleResult.data?.configName;
-
-console.log(
-  "ACTIVE CLAN BATTLE:",
-  activeBattleName
-);
-
-    console.log("CLAN BATTLES:", battles);
-
-Object.values(battles).forEach(battle => {
-
+if (activeBattle) {
   const contributions =
-    battle.PointContributions || [];
+    activeBattle.PointContributions || [];
 
   contributions.forEach(player => {
-
     const userId = Number(player.UserID);
 
     pointsByUser[userId] =
-      (pointsByUser[userId] || 0) +
       Number(player.Points || 0);
-
   });
-
-});
+}
 
 members.sort((a, b) => {
   const pointsA =
