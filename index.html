@@ -2227,6 +2227,21 @@ const clanDetails = await response.json();
 const battles =
   clanDetails.data?.Battles || {};
 
+    const activeBattleResponse = await fetch(
+  "https://ps99.biggamesapi.io/api/activeClanBattle"
+);
+
+const activeBattleResult =
+  await activeBattleResponse.json();
+
+const activeBattleName =
+  activeBattleResult.data?.configName;
+
+console.log(
+  "ACTIVE CLAN BATTLE:",
+  activeBattleName
+);
+
 const activeBattle =
   battles[activeBattleName];
 
