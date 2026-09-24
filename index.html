@@ -2220,7 +2220,21 @@ if (top50Clan && currentRank) {
 
 const clanDetails = await response.json();
 
-    const members = clanDetails.data?.Members || [];
+    const members = [...(clanDetails.data?.Members || [])];
+
+const ownerId = Number(clanDetails.data?.Owner);
+
+if (
+  ownerId &&
+  !members.some(member => Number(member.UserID) === ownerId)
+) {
+  members.unshift({
+    UserID: ownerId,
+    PermissionLevel: 100,
+    JoinTime: null,
+    isOwner: true
+  });
+}
 
     console.log("TOTAL CLAN MEMBERS:", members.length);
 console.log("CLAN MEMBERS:", members);
