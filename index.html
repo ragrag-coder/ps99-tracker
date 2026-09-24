@@ -2222,6 +2222,9 @@ const clanDetails = await response.json();
 
     const members = clanDetails.data?.Members || [];
 
+    console.log("TOTAL CLAN MEMBERS:", members.length);
+console.log("CLAN MEMBERS:", members);
+
     const pointsByUser = {};
 
 const battles =
