@@ -4238,6 +4238,10 @@ masteryOverlay.addEventListener(
   gamepassesCard.addEventListener(
   "click",
   () => {
+    if (playerGamepasses.textContent === "Private") {
+      return;
+    }
+
     gamepassesOverlay.style.display =
       "flex";
   }
