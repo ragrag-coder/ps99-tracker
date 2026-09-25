@@ -2114,6 +2114,127 @@ console.log(
   enchantRobloxUsers
 );
 
+    const testEnchantResponse = await fetch(
+  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      type: "enchants",
+      username: "mini_melt21"
+    })
+  }
+);
+
+const testEnchantData =
+  await testEnchantResponse.json();
+
+console.log(
+  "MINI MELT ENCHANTS:",
+  testEnchantData
+);
+
+const enchantList =
+  testEnchantData.enchants || [];
+
+const enchantHtml = enchantList.map(enchant => {
+
+  const assetId =
+    enchant.icon
+      ?.replace("rbxassetid://", "");
+
+  const iconUrl =
+    assetId
+      ? `https://www.roblox.com/asset-thumbnail/image?assetId=${assetId}&width=150&height=150&format=png`
+      : "";
+
+  return `
+    <div style="
+      width:90px;
+      text-align:center;
+    ">
+
+      <div style="
+        width:70px;
+        height:70px;
+        margin:auto;
+        border-radius:18px;
+        background:#fff0f7;
+        border:2px solid #ffc9df;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 5px 12px rgba(255,92,168,.12);
+      ">
+        ${
+          iconUrl
+            ? `<img
+                src="${iconUrl}"
+                style="
+                  width:58px;
+                  height:58px;
+                  object-fit:contain;
+                "
+              >`
+            : "♡"
+        }
+      </div>
+
+      <div style="
+        margin-top:6px;
+        font-size:11px;
+        font-weight:800;
+        color:#61374f;
+      ">
+        ${enchant.displayName}
+      </div>
+
+    </div>
+  `;
+
+}).join("");
+
+document.getElementById("enchantsResults").innerHTML = `
+  <div style="
+    max-width:900px;
+    margin:0 auto;
+    padding:20px;
+  ">
+
+    <div style="
+      background:#fff9fc;
+      border:2px solid #ffd1e5;
+      border-radius:25px;
+      padding:20px;
+      box-shadow:0 8px 25px rgba(255,92,168,.08);
+    ">
+
+      <div style="
+        text-align:center;
+        font-size:24px;
+        font-weight:900;
+        color:#d94b8d;
+        margin-bottom:20px;
+      ">
+        🎀 mini_melt21
+      </div>
+
+      <div style="
+        display:flex;
+        justify-content:center;
+        gap:18px;
+        flex-wrap:wrap;
+      ">
+        ${enchantHtml}
+      </div>
+
+    </div>
+
+  </div>
+`;
+
 }
 
   function showLeagues(event) {
