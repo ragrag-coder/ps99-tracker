@@ -2594,13 +2594,21 @@ function createHourlyPlayerRow(player, rank) {
       </span>
 
       <span style="
-        flex:1;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-      ">
-        ${player.displayName}
-      </span>
+  flex:1;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+">
+  ${player.displayName}
+  <span style="
+    font-size:10px;
+    font-weight:600;
+    color:#c9789e;
+  ">
+    (@${player.username})
+  </span>
+</span>
 
       <span style="
         flex-shrink:0;
