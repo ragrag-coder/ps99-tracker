@@ -2142,13 +2142,11 @@ const enchantList =
 const enchantHtml = enchantList.map(enchant => {
 
   const assetId =
-    enchant.icon
-      ?.replace("rbxassetid://", "");
+  enchant.icon
+    ?.replace("rbxassetid://", "");
 
-  const iconUrl =
-    assetId
-      ? `https://www.roblox.com/asset-thumbnail/image?assetId=${assetId}&width=150&height=150&format=png`
-      : "";
+const iconUrl =
+  testEnchantData.iconUrls?.[assetId] || "";
 
   return `
     <div style="
