@@ -2171,238 +2171,248 @@ async function showEnchants(event) {
 
 
   // =========================================================
-  // CREATE HTML
   // =========================================================
+// CREATE HTML
+// =========================================================
 
-  let html = "";
+let html = "";
+
+for (
+  const clanResult
+  of clanResults
+) {
+
+  const clan =
+    clanResult.clan;
+
+  const players =
+    clanResult.players;
 
 
-  for (
-    const clanResult
-    of clanResults
-  ) {
+  // Clan header
+  html += `
+    <div style="
+      max-width:1100px;
+      margin:0 auto 30px auto;
+    ">
 
-    const clan =
-      clanResult.clan;
-
-    const players =
-      clanResult.players;
-
-
-    html += `
       <div style="
-        max-width:850px;
-        margin:0 auto 18px auto;
-        padding:5px;
+        text-align:center;
+        margin-bottom:18px;
       ">
 
         <div style="
-          background:linear-gradient(
-            135deg,
-            #fff9fc,
-            #fff0f7
-          );
-
-          border:2px solid #ffd1e5;
-
-          border-radius:28px;
-
-          padding:12px 18px;
-
-          box-shadow:
-            0 10px 30px
-            rgba(255,92,168,.12);
+          font-size:24px;
+          font-weight:900;
+          color:#d94b8d;
         ">
+          🎀 ${clan.Name}
 
-
-          <div style="
-            text-align:center;
-            font-size:20px;
-            font-weight:900;
-            color:#d94b8d;
-            margin-bottom:14px;
+          <span style="
+            font-size:14px;
+            font-weight:800;
+            color:#c9789e;
+            margin-left:8px;
           ">
-
-            🎀 ${clan.Name}
-
-            <span style="
-              font-size:13px;
-              font-weight:800;
-              color:#c9789e;
-              margin-left:8px;
-            ">
-              ${players.length}
-              player${players.length === 1 ? "" : "s"}
-            </span>
-
-          </div>
-
-
-          <div style="
-            display:grid;
-            grid-template-columns:
-              repeat(auto-fit, minmax(90px, 1fr));
-
-            gap:10px;
-
-            justify-items:center;
-          ">
-
-
-            ${players.map(player => {
-
-              const enchantList =
-                player.enchants || [];
-
-
-              const enchantHtml =
-                enchantList.map(
-                  enchant => {
-
-                    const assetId =
-                      enchant.icon
-                        ?.replace(
-                          "rbxassetid://",
-                          ""
-                        );
-
-
-                    const iconUrl =
-                      player.iconUrls?.[
-                        assetId
-                      ] || "";
-
-
-                    return `
-                      <div style="
-                        width:90px;
-                        text-align:center;
-                      ">
-
-                        <div style="
-                          width:70px;
-                          height:70px;
-
-                          margin:auto;
-
-                          border-radius:18px;
-
-                          background:#fff0f7;
-
-                          border:
-                            2px solid
-                            #ffc9df;
-
-                          display:flex;
-
-                          align-items:center;
-                          justify-content:center;
-
-                          box-shadow:
-                            0 5px 12px
-                            rgba(
-                              255,
-                              92,
-                              168,
-                              .12
-                            );
-                        ">
-
-                          ${
-                            iconUrl
-                              ? `
-                                <img
-                                  src="${iconUrl}"
-                                  style="
-                                    width:58px;
-                                    height:58px;
-                                    object-fit:contain;
-                                  "
-                                >
-                              `
-                              : "♡"
-                          }
-
-                        </div>
-
-
-                        <div style="
-                          margin-top:6px;
-
-                          font-size:11px;
-
-                          font-weight:800;
-
-                          color:#61374f;
-
-                          line-height:14px;
-                        ">
-                          ${enchant.displayName}
-                        </div>
-
-                      </div>
-                    `;
-
-                  }
-                ).join("");
-
-
-              return `
-                <div style="
-                  width:100%;
-                  margin-bottom:14px;
-                ">
-
-
-                  <div style="
-                    text-align:center;
-
-                    font-size:17px;
-
-                    font-weight:900;
-
-                    color:#d94b8d;
-
-                    margin-bottom:9px;
-                  ">
-
-                    ${player.username}
-
-                  </div>
-
-
-                  <div style="
-                    display:grid;
-
-                    grid-template-columns:
-                      repeat(
-                        auto-fit,
-                        minmax(90px, 1fr)
-                      );
-
-                    gap:10px;
-
-                    justify-items:center;
-                  ">
-
-                    ${enchantHtml}
-
-                  </div>
-
-                </div>
-              `;
-
-            }).join("")}
-
-
-          </div>
-
+            ${players.length}
+            player${players.length === 1 ? "" : "s"}
+          </span>
         </div>
 
       </div>
-    `;
-  }
 
+
+      <!-- PLAYER CARDS -->
+
+      <div style="
+        display:grid;
+        grid-template-columns:
+          repeat(auto-fit, minmax(300px, 1fr));
+        gap:18px;
+      ">
+
+
+        ${players.map(player => {
+
+          const enchantList =
+            player.enchants || [];
+
+
+          const enchantHtml =
+            enchantList.map(
+              enchant => {
+
+                const assetId =
+                  enchant.icon
+                    ?.replace(
+                      "rbxassetid://",
+                      ""
+                    );
+
+
+                const iconUrl =
+                  player.iconUrls?.[
+                    assetId
+                  ] || "";
+
+
+                return `
+                  <div style="
+                    width:90px;
+                    text-align:center;
+                  ">
+
+                    <div style="
+                      width:72px;
+                      height:72px;
+
+                      margin:auto;
+
+                      border-radius:18px;
+
+                      background:
+                        linear-gradient(
+                          145deg,
+                          #fff5fa,
+                          #ffe8f3
+                        );
+
+                      border:
+                        2px solid
+                        #ffc9df;
+
+                      display:flex;
+
+                      align-items:center;
+                      justify-content:center;
+
+                      box-shadow:
+                        0 5px 12px
+                        rgba(
+                          255,
+                          92,
+                          168,
+                          .12
+                        );
+                    ">
+
+                      ${
+                        iconUrl
+                          ? `
+                            <img
+                              src="${iconUrl}"
+                              style="
+                                width:58px;
+                                height:58px;
+                                object-fit:contain;
+                              "
+                            >
+                          `
+                          : "♡"
+                      }
+
+                    </div>
+
+
+                    <div style="
+                      margin-top:6px;
+
+                      font-size:11px;
+
+                      font-weight:800;
+
+                      color:#61374f;
+
+                      line-height:14px;
+                    ">
+                      ${enchant.displayName}
+                    </div>
+
+                  </div>
+                `;
+
+              }
+            ).join("");
+
+
+          return `
+            <div style="
+              background:
+                linear-gradient(
+                  145deg,
+                  #fffafd,
+                  #fff0f7
+                );
+
+              border:
+                2px solid
+                #ffd1e5;
+
+              border-radius:24px;
+
+              padding:18px;
+
+              box-shadow:
+                0 10px 30px
+                rgba(
+                  255,
+                  92,
+                  168,
+                  .12
+                );
+            ">
+
+
+              <!-- PLAYER NAME -->
+
+              <div style="
+                text-align:center;
+
+                font-size:18px;
+
+                font-weight:900;
+
+                color:#d94b8d;
+
+                margin-bottom:15px;
+              ">
+                ${player.username}
+              </div>
+
+
+              <!-- ENCHANTS -->
+
+              <div style="
+                display:grid;
+
+                grid-template-columns:
+                  repeat(
+                    auto-fit,
+                    minmax(90px, 1fr)
+                  );
+
+                gap:12px;
+
+                justify-items:center;
+              ">
+
+                ${enchantHtml}
+
+              </div>
+
+            </div>
+          `;
+
+        }).join("")}
+
+
+      </div>
+
+    </div>
+  `;
+}
+
+results.innerHTML = html;
 
   results.innerHTML =
     html;
