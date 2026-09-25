@@ -3070,6 +3070,81 @@ async function searchPlayers(search) {
 
 }
 
+  async function searchClans(search) {
+
+  try {
+
+    const response =
+      await fetch(
+        "https://ps99.biggamesapi.io/api/clans?page=1&pageSize=100&sort=Points&sortOrder=desc"
+      );
+
+    const result =
+      await response.json();
+
+    const clans =
+      result.data || [];
+
+    const filteredClans =
+      clans.filter(clan =>
+        clan.Name
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      );
+
+    clanSearchResults.innerHTML = "";
+
+    if (filteredClans.length === 0) {
+
+      clanSearchResults.innerHTML =
+        "<div style='text-align:center;'>No clans found ♡</div>";
+
+      return;
+    }
+
+    filteredClans.forEach((clan, index) => {
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "clan-list-card";
+
+      card.style.cursor =
+        "pointer";
+
+      card.onclick = () => {
+        showClan(clan);
+      };
+
+      card.innerHTML = `
+        <div class="member-name">
+          ${clan.Name}
+        </div>
+
+        <div class="member-points">
+          ${Number(clan.Points).toLocaleString()} pts
+        </div>
+      `;
+
+      clanSearchResults.appendChild(card);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Could not search clans:",
+      error
+    );
+
+    clanSearchResults.innerHTML =
+      "<div style='text-align:center;'>Could not search clans ♡</div>";
+
+  }
+
+}
+
   function masteryXpToLevel(xp) {
   xp = Number(xp);
 
