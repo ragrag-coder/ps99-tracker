@@ -2461,6 +2461,28 @@ try {
 
 }
 
+    const hourlyPlayers = members.map(member => {
+  const userId = Number(member.UserID);
+  const robloxUser = robloxUsers[userId];
+
+  return {
+    userId: userId,
+    username: robloxUser?.name || String(userId),
+    displayName: robloxUser?.displayName || String(userId),
+    pointsPerHour:
+      Number(hourlyResult[userId]?.pointsPerHour || 0)
+  };
+});
+
+hourlyPlayers.sort(
+  (a, b) => b.pointsPerHour - a.pointsPerHour
+);
+
+console.log(
+  "SORTED HOURLY PLAYERS:",
+  hourlyPlayers
+);
+
 clanMembersList.innerHTML = members.map((member, index) => {
 
   const joinedDate = new Date(member.JoinTime * 1000);
