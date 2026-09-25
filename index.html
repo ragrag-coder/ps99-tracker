@@ -281,6 +281,8 @@ padding: 14px 24px;
 }
 
     .clan-list-card {
+  height: 30px;
+  min-height: 30px;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -2981,7 +2983,7 @@ playerSearchInput.addEventListener(
 
         return `
           <div
-  class="member-card"
+  class="clan-list-card"
   style="cursor:pointer;"
   onclick='showClan(${JSON.stringify(clan)})'>
 
