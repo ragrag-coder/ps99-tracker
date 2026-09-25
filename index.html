@@ -2483,6 +2483,33 @@ console.log(
   hourlyPlayers
 );
 
+    const totalHourlyPoints =
+  hourlyPlayers.reduce(
+    (total, player) =>
+      total + Number(player.pointsPerHour || 0),
+    0
+  );
+
+function formatTotalHourlyPoints(points) {
+
+  if (points >= 1000000000) {
+    return `${(points / 1000000000).toFixed(2)}B`;
+  }
+
+  if (points >= 1000000) {
+    return `${(points / 1000000).toFixed(1)}M`;
+  }
+
+  if (points >= 1000) {
+    return `${(points / 1000).toFixed(1)}K`;
+  }
+
+  return Math.round(points).toLocaleString();
+}
+
+document.getElementById("hourlyPoints").textContent =
+  formatTotalHourlyPoints(totalHourlyPoints);
+
     const column1Players = hourlyPlayers.slice(0, 25);
 const column2Players = hourlyPlayers.slice(25, 50);
 const column3Players = hourlyPlayers.slice(50, 75);
