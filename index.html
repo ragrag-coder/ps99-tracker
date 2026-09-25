@@ -2198,6 +2198,12 @@ playerProfile.style.display =
     ? "M4RB"
     : (league?.Name || profileName.textContent);
 
+    playerClanPoints.textContent =
+  Number(player.ClanPoints || 0).toLocaleString();
+
+playerClanName.textContent =
+  player.ClanName || "-";
+
 }
 
 
