@@ -1456,6 +1456,11 @@ font-weight: 700;
     <div class="stat-label">Gamepasses</div>
 </div>
 
+            <div class="stat-card" id="equippedPetsCard" style="cursor:pointer;">
+  <div class="stat-number" id="playerEquippedPets">-</div>
+  <div class="stat-label">Equipped Pets</div>
+</div>
+
             <div
   id="gamepassesOverlay"
   style="display:none;"
@@ -3599,7 +3604,7 @@ playerBackButton.textContent =
       await fetch(
         "https://ps99.biggamesapi.io/v1/players/" +
         encodeURIComponent(player.username) +
-        "?include=profile,extendedProfile"
+        "?include=profile,extendedProfile,inventory"
       );
 
     const result =
