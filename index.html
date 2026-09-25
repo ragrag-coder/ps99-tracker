@@ -3652,6 +3652,47 @@ if (
   const gamepasses =
     extendedProfile.data.Gamepasses;
 
+      const gamepassIconIds = {
+  "15 Pets Equipped": "259437976",
+  "Auto Farm": "265320491",
+  "Auto Tapper": "265324265",
+  "Lucky": "205379487",
+  "VIP": "257811346"
+};
+
+const gamePassIds = Object.entries(gamepasses)
+  .filter(([name, owned]) => owned === true)
+  .map(([name]) => gamepassIconIds[name])
+  .filter(Boolean);
+
+let gamepassImages = {};
+
+try {
+  const response = await fetch(
+    "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        type: "gamepassIcons",
+        gamePassIds
+      })
+    }
+  );
+
+  if (response.ok) {
+    const result = await response.json();
+
+    for (const item of result.data || []) {
+      gamepassImages[String(item.targetId)] = item.imageUrl;
+    }
+  }
+} catch (error) {
+  console.log("GAMEPASS IMAGE ERROR:", error);
+}
+
   const ownedGamepasses =
     Object.values(gamepasses)
       .filter(value => value === true)
@@ -3663,21 +3704,40 @@ if (
       gamepassesDetails.innerHTML =
   Object.entries(gamepasses)
     .filter(([name, owned]) => owned === true)
-    .map(([name]) => `
-      <div class="member-card" style="
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        padding:15px 10px;
-        gap:4px;
-      ">
-        <div class="member-name">
-          ${name}
+    .map(([name]) => {
+      const iconId = gamepassIconIds[name];
+      const imageUrl = gamepassImages[iconId];
+
+      return `
+        <div class="member-card" style="
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          padding:12px 10px;
+          gap:4px;
+        ">
+          ${
+            imageUrl
+              ? `<img
+                  src="${imageUrl}"
+                  alt="${name}"
+                  style="
+                    width:75px;
+                    height:75px;
+                    object-fit:contain;
+                  "
+                >`
+              : ""
+          }
+
+          <div class="member-name">
+            ${name}
+          </div>
         </div>
-      </div>
-    `)
+      `;
+    })
     .join("");
 }
 
