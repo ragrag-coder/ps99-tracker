@@ -3762,22 +3762,62 @@ equippedPetsDetails.innerHTML = equippedPets.map(pet => {
       ${pet.displayName || pet.id}
     </div>
     <div style="
-  font-size:9px;
-  font-weight:bold;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:3px;
   margin-top:2px;
-  padding:3px 7px;
-  border-radius:10px;
-  background:#ffe4f0;
-  color:#d83f83;
 ">
   ${
     pet.rainbow
-      ? "🌈 RAINBOW"
-      : pet.golden
-        ? "✨ GOLDEN"
-        : pet.shiny
-          ? "💎 SHINY"
-          : "NORMAL"
+      ? `<span style="
+          font-size:9px;
+          font-weight:bold;
+          padding:3px 6px;
+          border-radius:10px;
+          background:#ffe4f0;
+          color:#d83f83;
+        ">🌈 RAINBOW</span>`
+      : ""
+  }
+
+  ${
+    pet.golden
+      ? `<span style="
+          font-size:9px;
+          font-weight:bold;
+          padding:3px 6px;
+          border-radius:10px;
+          background:#fff0c2;
+          color:#c28a00;
+        ">✨ GOLDEN</span>`
+      : ""
+  }
+
+  ${
+    pet.shiny
+      ? `<span style="
+          font-size:9px;
+          font-weight:bold;
+          padding:3px 6px;
+          border-radius:10px;
+          background:#e8ddff;
+          color:#7956c7;
+        ">💎 SHINY</span>`
+      : ""
+  }
+
+  ${
+    !pet.rainbow && !pet.golden && !pet.shiny
+      ? `<span style="
+          font-size:9px;
+          font-weight:bold;
+          padding:3px 6px;
+          border-radius:10px;
+          background:#ffe4f0;
+          color:#d83f83;
+        ">NORMAL</span>`
+      : ""
   }
 </div>
   </div>
