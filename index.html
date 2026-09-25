@@ -3647,38 +3647,6 @@ if (
   playerMastery.textContent =
     `${maxedMasteries} MAXED`;
 
-  // Get mastery images from Roblox
-  const assetIds =
-    Object.values(masteryIconIds);
-
-  let masteryImages = {};
-
-  try {
-
-    const thumbnailResponse =
-      await fetch(
-        "https://thumbnails.roblox.com/v1/assets?assetIds=" +
-        assetIds.join(",") +
-        "&size=150x150&format=Png&isCircular=false"
-      );
-
-    if (thumbnailResponse.ok) {
-
-      const thumbnailResult =
-        await thumbnailResponse.json();
-
-      for (
-        const item
-        of thumbnailResult.data || []
-      ) {
-
-        masteryImages[
-          String(item.targetId)
-        ] =
-          item.imageUrl;
-      }
-    }
-
   // Get mastery images through our Cloudflare Worker
 const assetIds =
   Object.values(masteryIconIds);
