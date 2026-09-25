@@ -3745,18 +3745,22 @@ equippedPetsDetails.innerHTML = equippedPets.map(pet => {
       ${pet.displayName || pet.id}
     </div>
     <div style="
-  font-size:10px;
+  font-size:9px;
   font-weight:bold;
   margin-top:2px;
+  padding:3px 7px;
+  border-radius:10px;
+  background:#ffe4f0;
+  color:#d83f83;
 ">
   ${
     pet.rainbow
-      ? "🌈 Rainbow"
+      ? "🌈 RAINBOW"
       : pet.golden
-        ? "✨ Golden"
+        ? "✨ GOLDEN"
         : pet.shiny
-          ? "💎 Shiny"
-          : "Normal"
+          ? "💎 SHINY"
+          : "NORMAL"
   }
 </div>
   </div>
