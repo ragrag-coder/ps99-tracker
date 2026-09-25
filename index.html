@@ -2188,11 +2188,48 @@ playerProfile.style.display =
     ? "M4RB"
     : (league?.Name || profileName.textContent);
 
-    playerClanPoints.textContent =
-  Number(player.ClanPoints || 0).toLocaleString();
+    try {
 
-playerClanName.textContent =
-  player.ClanName || "-";
+  const clanResponse =
+    await fetch(
+      "https://ps99.biggamesapi.io/v1/clans/players/" +
+      Number(player.UserID)
+    );
+
+  if (clanResponse.ok) {
+
+    const clanResult =
+      await clanResponse.json();
+
+    const clanPlayer =
+      clanResult.data?.player;
+
+    playerClanPoints.textContent =
+      Number(
+        clanPlayer?.ActiveBattlePoints || 0
+      ).toLocaleString();
+
+    playerClanName.textContent =
+      clanPlayer?.Clan?.Name || "-";
+
+  } else {
+
+    playerClanPoints.textContent = "-";
+    playerClanName.textContent = "-";
+
+  }
+
+} catch (error) {
+
+  console.log(
+    "Clan information could not be loaded.",
+    error
+  );
+
+  playerClanPoints.textContent = "-";
+  playerClanName.textContent = "-";
+
+}
 
 }
 
