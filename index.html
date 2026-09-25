@@ -2307,6 +2307,28 @@ members.sort((a, b) => {
   Number(member.UserID)
 );
 
+    const hourlyResponse = await fetch(
+  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      type: "hourlyPoints",
+      userIds: userIds
+    })
+  }
+);
+
+const hourlyResult =
+  await hourlyResponse.json();
+
+console.log(
+  "HOURLY POINTS:",
+  hourlyResult
+);
+
     const avatarResponse = await fetch(
   "https://ps99-roblox-api.ps99-tracker.workers.dev/",
   {
