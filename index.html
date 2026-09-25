@@ -1488,6 +1488,16 @@ font-weight: 700;
   </div>
 </div>
 
+            <div id="equippedPetsOverlay" style="display:none;">
+  <div id="equippedPetsPopup">
+    <div class="mastery-popup-header">
+      <h2>♡ Equipped Pets</h2>
+      <button type="button" id="closeEquippedPets">✕</button>
+    </div>
+    <div id="equippedPetsDetails"></div>
+  </div>
+</div>
+
   <div class="stat-card">
     <div class="stat-number" id="playerTime">-</div>
     <div class="stat-label">Player Time</div>
@@ -4019,6 +4029,32 @@ masteryOverlay.addEventListener(
   () => {
     gamepassesOverlay.style.display =
       "flex";
+  }
+);
+
+  equippedPetsCard.addEventListener(
+  "click",
+  () => {
+    equippedPetsOverlay.style.display =
+      "flex";
+  }
+);
+
+closeEquippedPets.addEventListener(
+  "click",
+  () => {
+    equippedPetsOverlay.style.display =
+      "none";
+  }
+);
+
+equippedPetsOverlay.addEventListener(
+  "click",
+  event => {
+    if (event.target === equippedPetsOverlay) {
+      equippedPetsOverlay.style.display =
+        "none";
+    }
   }
 );
 
