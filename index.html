@@ -3679,14 +3679,55 @@ if (
       }
     }
 
-  } catch (error) {
+  // Get mastery images through our Cloudflare Worker
+const assetIds =
+  Object.values(masteryIconIds);
 
-    console.log(
-      "MASTERY IMAGE ERROR:",
-      error
+let masteryImages = {};
+
+try {
+
+  const thumbnailResponse =
+    await fetch(
+      "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          type: "masteryIcons",
+          assetIds
+        })
+      }
     );
 
+  if (thumbnailResponse.ok) {
+
+    const thumbnailResult =
+      await thumbnailResponse.json();
+
+    for (
+      const item
+      of thumbnailResult.data || []
+    ) {
+
+      masteryImages[
+        String(item.targetId)
+      ] =
+        item.imageUrl;
+    }
   }
+
+} catch (error) {
+
+  console.log(
+    "MASTERY IMAGE ERROR:",
+    error
+  );
+
+}
 
   masteryDetails.innerHTML =
     Object.entries(mastery)
