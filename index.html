@@ -3690,6 +3690,14 @@ const equippedPets = inventory?.equipped?.pets?.list || [];
 const equippedEnchants = inventory?.equipped?.enchants?.list || [];
 
 playerEquippedPets.textContent = equippedPets.length;
+    const updatedTime = new Date();
+
+equippedPetsUpdated.textContent =
+  "Last updated: " +
+  updatedTime.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
     const petAssetIds = equippedPets
   .map(pet => {
     const match = String(pet.icon || "").match(/\d+/);
