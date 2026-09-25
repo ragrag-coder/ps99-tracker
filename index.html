@@ -2135,6 +2135,9 @@ let playerProfileSource = "league";
   
   async function showPlayer(player, robloxUser, league, source = "league") {
 
+    console.log("PLAYER DATA:", player);
+console.log("SOURCE:", source);
+
     playerProfileSource = source;
 
 if (source === "clan") {
