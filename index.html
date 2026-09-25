@@ -2483,34 +2483,55 @@ console.log(
   hourlyPlayers
 );
 
-    const firstHourlyPlayer = hourlyPlayers[0];
+    const column1Players = hourlyPlayers.slice(0, 25);
+const column2Players = hourlyPlayers.slice(25, 50);
+const column3Players = hourlyPlayers.slice(50, 75);
 
-if (firstHourlyPlayer) {
-  const rate = firstHourlyPlayer.pointsPerHour;
+
+function formatHourlyRate(rate) {
+
+  if (!rate || rate <= 0) {
+    return "0";
+  }
+
+  if (rate >= 1000000) {
+    return `+${(rate / 1000000).toFixed(1)}M`;
+  }
+
+  if (rate >= 1000) {
+    return `+${(rate / 1000).toFixed(1)}K`;
+  }
+
+  return `+${Math.round(rate).toLocaleString()}`;
+}
+
+
+function createHourlyPlayerRow(player, rank) {
 
   const formattedRate =
-    rate >= 1000000
-      ? `+${(rate / 1000000).toFixed(1)}M`
-      : `+${Math.round(rate).toLocaleString()}`;
+    formatHourlyRate(player.pointsPerHour);
 
-  document.getElementById("hourlyColumn1").innerHTML = `
+  return `
     <div style="
-  height:22px;
-display:flex;
-align-items:center;
-gap:4px;
-padding:0 8px 0 0;
+      height:22px;
+      display:flex;
+      align-items:center;
+      gap:4px;
+      padding:0 8px 0 0;
       font-size:12px;
       font-weight:800;
       color:#b83f79;
     ">
+
       <span style="
         width:48px;
         flex-shrink:0;
         text-align:center;
         font-size:11px;
         color:#c94f88;
-      ">01</span>
+      ">
+        ${String(rank).padStart(2, "0")}
+      </span>
 
       <span style="
         flex:1;
@@ -2518,19 +2539,44 @@ padding:0 8px 0 0;
         overflow:hidden;
         text-overflow:ellipsis;
       ">
-        ${firstHourlyPlayer.displayName}
+        ${player.displayName}
       </span>
 
       <span style="
         flex-shrink:0;
-        color:#4ca85a;
+        color:${player.pointsPerHour > 0 ? "#4ca85a" : "#b7a0ad"};
         font-weight:900;
       ">
         ${formattedRate}
       </span>
+
     </div>
   `;
 }
+
+
+document.getElementById("hourlyColumn1").innerHTML =
+  column1Players
+    .map((player, index) =>
+      createHourlyPlayerRow(player, index + 1)
+    )
+    .join("");
+
+
+document.getElementById("hourlyColumn2").innerHTML =
+  column2Players
+    .map((player, index) =>
+      createHourlyPlayerRow(player, index + 26)
+    )
+    .join("");
+
+
+document.getElementById("hourlyColumn3").innerHTML =
+  column3Players
+    .map((player, index) =>
+      createHourlyPlayerRow(player, index + 51)
+    )
+    .join("");
 
 clanMembersList.innerHTML = members.map((member, index) => {
 
