@@ -2510,6 +2510,39 @@ function formatTotalHourlyPoints(points) {
 document.getElementById("hourlyPoints").textContent =
   formatTotalHourlyPoints(totalHourlyPoints);
 
+    const latestHourlyUpdate =
+  hourlyPlayers.reduce(
+    (latest, player) => {
+      const updatedAt =
+        hourlyResult[player.userId]?.updatedAt || 0;
+
+      return Math.max(latest, updatedAt);
+    },
+    0
+  );
+
+function updateHourlyTimestamp() {
+
+  if (!latestHourlyUpdate) {
+    document.getElementById("hourlyUpdated").textContent =
+      "Updating...";
+    return;
+  }
+
+  const minutesAgo =
+    Math.max(
+      0,
+      Math.floor(
+        (Date.now() - latestHourlyUpdate) / 60000
+      )
+    );
+
+  document.getElementById("hourlyUpdated").textContent =
+    `Updated ${minutesAgo} minute${minutesAgo === 1 ? "" : "s"} ago`;
+}
+
+updateHourlyTimestamp();
+
     const column1Players = hourlyPlayers.slice(0, 25);
 const column2Players = hourlyPlayers.slice(25, 50);
 const column3Players = hourlyPlayers.slice(50, 75);
