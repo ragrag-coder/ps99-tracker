@@ -2389,6 +2389,17 @@ presenceUsers.forEach(presence => {
   ] = presence;
 });
 
+    // Update Hourly Points popup stats
+const activeMembers = presenceUsers.filter(
+  presence => Number(presence.userPresenceType) !== 0
+).length;
+
+document.getElementById("hourlyActive").textContent =
+  `${activeMembers}/${members.length}`;
+
+document.getElementById("hourlyRank").textContent =
+  currentRank ? `#${currentRank}` : "-";
+
 const robloxUsers = {};
 
 try {
