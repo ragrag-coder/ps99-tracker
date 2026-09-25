@@ -3871,6 +3871,9 @@ playerEnchants.textContent = equippedEnchants.length;
     const extendedProfile =
   result.data.views?.extendedProfile;
 
+    gamepassesDetails.innerHTML = "";
+playerGamepasses.textContent = "-";
+
 if (
   extendedProfile &&
   extendedProfile.available === false
