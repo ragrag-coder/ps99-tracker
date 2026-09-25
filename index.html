@@ -2483,6 +2483,55 @@ console.log(
   hourlyPlayers
 );
 
+    const firstHourlyPlayer = hourlyPlayers[0];
+
+if (firstHourlyPlayer) {
+  const rate = firstHourlyPlayer.pointsPerHour;
+
+  const formattedRate =
+    rate >= 1000000
+      ? `+${(rate / 1000000).toFixed(1)}M`
+      : `+${Math.round(rate).toLocaleString()}`;
+
+  document.getElementById("hourlyColumn1").innerHTML = `
+    <div style="
+      height:24px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:0 8px;
+      font-size:12px;
+      font-weight:800;
+      color:#b83f79;
+    ">
+      <span style="
+        width:22px;
+        flex-shrink:0;
+        text-align:center;
+        font-size:11px;
+        color:#c94f88;
+      ">01</span>
+
+      <span style="
+        flex:1;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      ">
+        ${firstHourlyPlayer.displayName}
+      </span>
+
+      <span style="
+        flex-shrink:0;
+        color:#4ca85a;
+        font-weight:900;
+      ">
+        ${formattedRate}
+      </span>
+    </div>
+  `;
+}
+
 clanMembersList.innerHTML = members.map((member, index) => {
 
   const joinedDate = new Date(member.JoinTime * 1000);
@@ -3311,6 +3360,36 @@ loadLeagues();
 >
   M4RB
 </div>
+
+    <div
+  id="hourlyColumn1"
+  style="
+    position:absolute;
+    top:27%;
+    left:4%;
+    width:30%;
+  "
+></div>
+
+<div
+  id="hourlyColumn2"
+  style="
+    position:absolute;
+    top:27%;
+    left:35%;
+    width:30%;
+  "
+></div>
+
+<div
+  id="hourlyColumn3"
+  style="
+    position:absolute;
+    top:27%;
+    left:66%;
+    width:30%;
+  "
+></div>
 
     <button
       onclick="closeHourlyPoints()"
