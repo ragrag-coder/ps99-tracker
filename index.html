@@ -4279,6 +4279,32 @@ masteryOverlay.addEventListener(
   }
 );
 
+  enchantsCard.addEventListener(
+  "click",
+  () => {
+    enchantsOverlay.style.display =
+      "flex";
+  }
+);
+
+closeEnchants.addEventListener(
+  "click",
+  () => {
+    enchantsOverlay.style.display =
+      "none";
+  }
+);
+
+enchantsOverlay.addEventListener(
+  "click",
+  event => {
+    if (event.target === enchantsOverlay) {
+      enchantsOverlay.style.display =
+        "none";
+    }
+  }
+);
+
   equippedPetsCard.addEventListener(
   "click",
   () => {
