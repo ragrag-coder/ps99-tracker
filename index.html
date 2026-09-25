@@ -3610,6 +3610,13 @@ playerBackButton.textContent =
     const result =
       await response.json();
 
+    const inventory = result.data?.views?.inventory?.data;
+const equippedPets = inventory?.equipped?.pets?.list || [];
+const equippedEnchants = inventory?.equipped?.enchants?.list || [];
+
+playerEquippedPets.textContent = equippedPets.length;
+playerEnchants.textContent = equippedEnchants.length;
+
 
     console.log(
       "PS99 PLAYER PROFILE:",
