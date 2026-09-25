@@ -3613,10 +3613,28 @@ if (
 const mastery =
   data.Mastery;
 
+const masteryIconIds = {
+  "Boost Exchange": "117040888028295",
+  "Breakables": "15092228198",
+  "Digging": "16848836284",
+  "Economy": "15092229110",
+  "Eggs": "15057348341",
+  "Enchants": "15057348192",
+  "Fishing": "16717409986",
+  "Fruit": "15092228779",
+  "Fuse": "15092228658",
+  "Gifts": "15092229040",
+  "Keys": "16848872762",
+  "Pets": "15057347827",
+  "Potions": "15057347575",
+  "Superior Chests": "17602729261"
+};
+
 if (
   mastery &&
   typeof mastery === "object"
 ) {
+
   const masteryLevels =
     Object.values(mastery)
       .map(xp => masteryXpToLevel(xp));
@@ -3627,29 +3645,64 @@ if (
       .length;
 
   playerMastery.textContent =
-  `${maxedMasteries} MAXED`;
+    `${maxedMasteries} MAXED`;
+
   masteryDetails.innerHTML =
-  Object.entries(mastery)
-    .map(([name, xp]) => {
-      const level =
-        masteryXpToLevel(xp);
+    Object.entries(mastery)
+      .map(([name, xp]) => {
 
-      return `
-        <div class="member-card">
-          <div class="member-name">
-            ${name}
-          </div>
+        const level =
+          masteryXpToLevel(xp);
 
-          <div class="stat-number">
-            ${level}
+        const iconId =
+          masteryIconIds[name];
+
+        return `
+          <div class="member-card" style="
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:20px 10px;
+            min-height:150px;
+          ">
+
+            ${
+              iconId
+                ? `
+                  <img
+                    src="https://tr.rbxcdn.com/${iconId}/420/420/Image/Png"
+                    alt="${name}"
+                    style="
+                      width:75px;
+                      height:75px;
+                      object-fit:contain;
+                      margin-bottom:10px;
+                    "
+                  >
+                `
+                : ""
+            }
+
+            <div class="member-name">
+              ${name}
+            </div>
+
+            <div class="stat-number">
+              ${level}
+            </div>
+
           </div>
-        </div>
-      `;
-    })
-    .join("");
+        `;
+      })
+      .join("");
+
 } else {
+
   playerMastery.textContent =
     "-";
+
 }
   
   const playtimeSeconds =
