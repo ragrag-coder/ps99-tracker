@@ -3663,11 +3663,58 @@ const equippedPets = inventory?.equipped?.pets?.list || [];
 const equippedEnchants = inventory?.equipped?.enchants?.list || [];
 
 playerEquippedPets.textContent = equippedPets.length;
-    equippedPetsDetails.innerHTML = equippedPets.map(pet => `
-  <div class="member-card">
-    <div class="member-name">${pet.displayName || pet.id}</div>
-  </div>
-`).join("");
+    const petAssetIds = equippedPets
+  .map(pet => {
+    const match = String(pet.icon || "").match(/\d+/);
+    return match ? match[0] : null;
+  })
+  .filter(Boolean);
+
+let petImages = {};
+
+try {
+  const response = await fetch(
+    "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        type: "masteryIcons",
+        assetIds: petAssetIds
+      })
+    }
+  );
+
+  if (response.ok) {
+    const result = await response.json();
+
+    for (const item of result.data || []) {
+      petImages[String(item.targetId)] = item.imageUrl;
+    }
+  }
+} catch (error) {
+  console.log("PET IMAGE ERROR:", error);
+}
+
+equippedPetsDetails.innerHTML = equippedPets.map(pet => {
+  const match = String(pet.icon || "").match(/\d+/);
+  const imageUrl = match ? petImages[match[0]] : "";
+
+  return `
+    <div class="member-card">
+      ${
+        imageUrl
+          ? `<img src="${imageUrl}" alt="${pet.displayName || pet.id}" style="width:65px;height:65px;object-fit:contain;">`
+          : ""
+      }
+      <div class="member-name" style="font-size:12px;line-height:1.1;">
+        ${pet.displayName || pet.id}
+      </div>
+    </div>
+  `;
+}).join("");
 playerEnchants.textContent = equippedEnchants.length;
 
 
