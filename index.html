@@ -452,6 +452,60 @@ padding: 14px 24px;
   margin: 0;
 }
 
+    #gamepassesOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(60, 20, 45, 0.35);
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+#gamepassesPopup {
+  width: 100%;
+  max-width: 650px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  background: #fff5fa;
+  border: 2px solid #ffb6d2;
+  border-radius: 25px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 15px 45px rgba(180, 60, 120, 0.25);
+}
+
+#closeGamepasses {
+  border: none;
+  background: #ff5c9d;
+  color: white;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#gamepassesDetails {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#gamepassesDetails .member-card {
+  margin: 0;
+}
+
 @media (max-width: 600px) {
   #masteryDetails {
     grid-template-columns: 1fr;
@@ -1393,10 +1447,36 @@ font-weight: 700;
   </div>
 </div>
 
-  <div class="stat-card">
+            <div
+  class="stat-card"
+  id="gamepassesCard"
+  style="cursor:pointer;"
+>
     <div class="stat-number" id="playerGamepasses">-</div>
     <div class="stat-label">Gamepasses</div>
+</div>
+
+            <div
+  id="gamepassesOverlay"
+  style="display:none;"
+>
+  <div id="gamepassesPopup">
+
+    <div class="mastery-popup-header">
+      <h2>♡ Gamepasses</h2>
+
+      <button
+        type="button"
+        id="closeGamepasses">
+        ✕
+      </button>
+    </div>
+
+    <div id="gamepassesDetails">
+    </div>
+
   </div>
+</div>
 
   <div class="stat-card">
     <div class="stat-number" id="playerTime">-</div>
@@ -3579,6 +3659,26 @@ if (
 
   playerGamepasses.textContent =
     ownedGamepasses;
+
+      gamepassesDetails.innerHTML =
+  Object.entries(gamepasses)
+    .filter(([name, owned]) => owned === true)
+    .map(([name]) => `
+      <div class="member-card" style="
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        padding:15px 10px;
+        gap:4px;
+      ">
+        <div class="member-name">
+          ${name}
+        </div>
+      </div>
+    `)
+    .join("");
 }
 
 
@@ -3825,6 +3925,32 @@ masteryOverlay.addEventListener(
   event => {
     if (event.target === masteryOverlay) {
       masteryOverlay.style.display =
+        "none";
+    }
+  }
+);
+
+  gamepassesCard.addEventListener(
+  "click",
+  () => {
+    gamepassesOverlay.style.display =
+      "flex";
+  }
+);
+
+closeGamepasses.addEventListener(
+  "click",
+  () => {
+    gamepassesOverlay.style.display =
+      "none";
+  }
+);
+
+gamepassesOverlay.addEventListener(
+  "click",
+  event => {
+    if (event.target === gamepassesOverlay) {
+      gamepassesOverlay.style.display =
         "none";
     }
   }
