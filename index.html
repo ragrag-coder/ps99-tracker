@@ -3436,9 +3436,10 @@ if (presence) {
       if (member && robloxUser) {
 
   const clanPlayer = {
-    username: robloxUser.name,
-    displayName: robloxUser.displayName
-  };
+  username: robloxUser.name,
+  displayName: robloxUser.displayName,
+  userId: userId
+};
 
   openPublicPlayer(clanPlayer, "clan");
 
