@@ -3827,6 +3827,9 @@ playerBackButton.textContent =
   playerLeagueName.textContent =
     "-";
 
+    playerClanPoints.textContent = "-";
+playerClanName.textContent = "-";
+
 
   try {
 
@@ -3839,6 +3842,40 @@ playerBackButton.textContent =
 
     const result =
       await response.json();
+
+    // Get player's clan information
+try {
+  const clanResponse =
+    await fetch(
+      "https://ps99.biggamesapi.io/v1/clans/players/" +
+      Number(player.userId || player.UserID)
+    );
+
+  if (clanResponse.ok) {
+    const clanResult =
+      await clanResponse.json();
+
+    const clanPlayer =
+      clanResult.data?.player;
+
+    playerClanPoints.textContent =
+      Number(
+        clanPlayer?.ActiveBattlePoints || 0
+      ).toLocaleString();
+
+    playerClanName.textContent =
+      clanPlayer?.Clan?.Name || "-";
+
+  } else {
+    playerClanPoints.textContent = "-";
+    playerClanName.textContent = "-";
+  }
+
+} catch (error) {
+  console.log("Clan information could not be loaded.", error);
+  playerClanPoints.textContent = "-";
+  playerClanName.textContent = "-";
+}
 
     const inventory = result.data?.views?.inventory?.data;
 const equippedPets = inventory?.equipped?.pets?.list || [];
