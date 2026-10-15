@@ -3070,6 +3070,14 @@ try {
     }
   );
 
+  if (!robloxResponse.ok) {
+  console.log(
+    "ROBLOX API ERROR:",
+    robloxResponse.status,
+    await robloxResponse.clone().text()
+  );
+}
+
   if (robloxResponse.ok) {
 
     const robloxResult =
