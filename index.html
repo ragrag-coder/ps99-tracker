@@ -3055,20 +3055,19 @@ const robloxUsers = {};
 try {
 
   const robloxResponse = await fetch(
-    "https://ps99-roblox-api.ps99-tracker.workers.dev/",
-    {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
-        userIds: userIds,
-        excludeBannedUsers: false
-      })
-    }
-  );
+  "https://ps99-roblox-api.ps99-tracker.workers.dev/",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      type: "username",
+      userIds: userIds,
+      excludeBannedUsers: false
+    })
+  }
+);
 
   if (!robloxResponse.ok) {
   console.log(
@@ -3079,15 +3078,24 @@ try {
 }
 
   if (robloxResponse.ok) {
+  const robloxResult =
+    await robloxResponse.json();
 
-    const robloxResult =
-      await robloxResponse.json();
+  const users = Array.isArray(robloxResult.data)
+    ? robloxResult.data
+    : [];
 
-    robloxResult.data.forEach(user => {
-      robloxUsers[user.id] = user;
-    });
+  users.forEach(user => {
+    robloxUsers[Number(user.id)] = user;
+  });
 
-  }
+} else {
+  console.log(
+    "Roblox username lookup failed:",
+    robloxResponse.status,
+    await robloxResponse.clone().text()
+  );
+}
 
 } catch (error) {
 
