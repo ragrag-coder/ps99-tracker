@@ -3155,22 +3155,26 @@ if (hourlyPointsElement) {
   );
 
 function updateHourlyTimestamp() {
+  const hourlyUpdatedElement =
+    document.getElementById("hourlyUpdated");
 
-  if (!latestHourlyUpdate) {
-    document.getElementById("hourlyUpdated").textContent =
-      "Updating...";
+  if (!hourlyUpdatedElement) {
     return;
   }
 
-  const minutesAgo =
-    Math.max(
-      0,
-      Math.floor(
-        (Date.now() - latestHourlyUpdate) / 60000
-      )
-    );
+  if (!latestHourlyUpdate) {
+    hourlyUpdatedElement.textContent = "Updating...";
+    return;
+  }
 
-  document.getElementById("hourlyUpdated").textContent =
+  const minutesAgo = Math.max(
+    0,
+    Math.floor(
+      (Date.now() - latestHourlyUpdate) / 60000
+    )
+  );
+
+  hourlyUpdatedElement.textContent =
     `Updated ${minutesAgo} minute${minutesAgo === 1 ? "" : "s"} ago`;
 }
 
