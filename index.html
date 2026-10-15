@@ -3034,11 +3034,21 @@ const activeMembers = presenceUsers.filter(
   presence => Number(presence.userPresenceType) !== 0
 ).length;
 
-document.getElementById("hourlyActive")?.textContent =
-  `${activeMembers}/${members.length}`;
+const hourlyActiveElement =
+  document.getElementById("hourlyActive");
 
-document.getElementById("hourlyRank")?.textContent =
-  currentRank ? `#${currentRank}` : "-";
+if (hourlyActiveElement) {
+  hourlyActiveElement.textContent =
+    `${activeMembers}/${members.length}`;
+}
+
+const hourlyRankElement =
+  document.getElementById("hourlyRank");
+
+if (hourlyRankElement) {
+  hourlyRankElement.textContent =
+    currentRank ? `#${currentRank}` : "-";
+}
 
 const robloxUsers = {};
 
