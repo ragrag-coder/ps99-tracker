@@ -3135,8 +3135,13 @@ function formatTotalHourlyPoints(points) {
   return Math.round(points).toLocaleString();
 }
 
-document.getElementById("hourlyPoints").textContent =
-  formatTotalHourlyPoints(totalHourlyPoints);
+const hourlyPointsElement =
+  document.getElementById("hourlyPoints");
+
+if (hourlyPointsElement) {
+  hourlyPointsElement.textContent =
+    formatTotalHourlyPoints(totalHourlyPoints);
+}
 
     const latestHourlyUpdate =
   hourlyPlayers.reduce(
