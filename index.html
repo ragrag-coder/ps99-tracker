@@ -3239,10 +3239,11 @@ function createHourlyPlayerRow(player, rank) {
 
       <span style="
   flex:1;
-  min-width:0;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+min-width:0;
+margin-left:12px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
 ">
   ${player.displayName}
   <span style="
@@ -3256,6 +3257,7 @@ function createHourlyPlayerRow(player, rank) {
 
       <span style="
         flex-shrink:0;
+        margin-right:12px;
         color:${player.pointsPerHour > 0 ? "#4ca85a" : "#b7a0ad"};
         font-weight:900;
       ">
